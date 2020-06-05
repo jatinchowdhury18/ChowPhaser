@@ -5,6 +5,7 @@
 #include "PluginBase.h"
 
 #include "FBSection.h"
+#include "PhaseSection.h"
 
 class ChowPhaser : public PluginBase<ChowPhaser>
 {
@@ -20,14 +21,21 @@ public:
 
 private:
     std::atomic<float>* fbParam = nullptr;
-    std::atomic<float>* freqParam = nullptr;
-    std::atomic<float>* depthParam = nullptr;
+    std::atomic<float>* modParam = nullptr;
     std::atomic<float>* lfoFreqParam = nullptr;
     std::atomic<float>* lfoDepthParam = nullptr;
+    std::atomic<float>* freqMultParam = nullptr;
 
-    dsp::Oscillator<float> oscillator[2];
-    dsp::Oscillator<float> lfo[2];
-    FBSection fbSection[2];
+    dsp::Oscillator<float> lfo;
+    FBSection fbSection;
+    PhaseSection phaseSection;
+
+    AudioBuffer<float> monoBuffer;
+    AudioBuffer<float> noModBuffer;
+
+    SmoothedValue<float, ValueSmoothingTypes::Linear> depthSmooth;
+    SmoothedValue<float, ValueSmoothingTypes::Linear> fbSmooth;
+    SmoothedValue<float, ValueSmoothingTypes::Linear> modSmooth;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChowPhaser)
 };

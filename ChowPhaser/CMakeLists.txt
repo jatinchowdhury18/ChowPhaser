@@ -49,6 +49,7 @@ jucer_project_files("shared"
   .         .         .         "${CMAKE_CURRENT_LIST_DIR}/ChowPhaserPlugin.h"
   x         .         .         "${CMAKE_CURRENT_LIST_DIR}/ChowPhaserPlugin.cpp"
   .         .         .         "${CMAKE_CURRENT_LIST_DIR}/FBSection.h"
+  .         .         .         "${CMAKE_CURRENT_LIST_DIR}/PhaseSection.h"
   .         .         x         "${CMAKE_CURRENT_LIST_DIR}/gui.xml"
 )
 

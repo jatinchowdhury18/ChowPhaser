@@ -16,11 +16,11 @@ public:
 
     inline void calcCoefs (float R, float fbAmt)
     {
-        jassert (R > 0.0f);
+        // jassert (R > 0.0f);
 
         // component values
-        R = jmax (1.0f, R);
-        constexpr float C = (float) 25e-9;
+        // R = jmax (1.0f, R);
+        constexpr float C = (float) 15e-9;
         const float RC = R*C;
 
         // analog coefs
@@ -30,9 +30,6 @@ public:
         const float a0s = b0s * (1.0f + fbAmt);
         const float a1s = -b1s * (1.0f - fbAmt);
         const float a2s = 1.0f + fbAmt;
-
-        auto poleX = -a1s /  (2 * a0s);
-        jassert (poleX < 0.0f);
 
         // frequency warping
         const float wc = calcPoleFreq (a0s, a1s, a2s);
