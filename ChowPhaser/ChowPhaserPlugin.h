@@ -25,6 +25,7 @@ private:
     std::atomic<float>* lfoFreqParam = nullptr;
     std::atomic<float>* lfoDepthParam = nullptr;
     std::atomic<float>* freqMultParam = nullptr;
+    std::atomic<float>* skewParam = nullptr;
 
     dsp::Oscillator<float> lfo;
     FBSection fbSection;
@@ -36,6 +37,15 @@ private:
     SmoothedValue<float, ValueSmoothingTypes::Linear> depthSmooth;
     SmoothedValue<float, ValueSmoothingTypes::Linear> fbSmooth;
     SmoothedValue<float, ValueSmoothingTypes::Linear> modSmooth;
+    SmoothedValue<float, ValueSmoothingTypes::Linear> skewSmooth;
+
+    AudioBuffer<float> scopeBuffer;
+    foleys::MagicPlotSource* scope = nullptr;
+
+    inline float lightShape (float x, float skewPow)
+    {
+        return (std::pow ((x + 1.0f) / 2.0f, skewPow) * 2.0f) - 1.0f;
+    }
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChowPhaser)
 };
