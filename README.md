@@ -51,4 +51,5 @@ $ cmake --build . --config Release
 
 ## License
 
-TBD
+CHOWPhaser is open source, and is licensed under the BSD 3-clause license.
+Enjoy!

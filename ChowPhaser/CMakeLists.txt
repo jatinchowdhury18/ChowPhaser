@@ -24,13 +24,13 @@ jucer_project_settings(
     CXX_LANGUAGE_STANDARD "C++17"
     HEADER_SEARCH_PATHS
         ${CMAKE_CURRENT_LIST_DIR}/../SharedCode/
-        C:/SDKs/VST_SDK/VST2_SDK/
+        # C:/SDKs/VST_SDK/VST2_SDK/
 )
 
 jucer_audio_plugin_settings(
     PLUGIN_FORMATS
-        # VST3
-        VST
+        VST3
+        # VST
         AU
         Standalone
     PLUGIN_NAME "ChowPhaser"
