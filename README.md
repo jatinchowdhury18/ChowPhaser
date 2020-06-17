@@ -1,5 +1,7 @@
 # CHOW Phaser
 
+[![Build Status](https://travis-ci.com/jatinchowdhury18/ChowPhaser.svg?token=Ub9niJrqG1Br1qaaxp7E&branch=master)](https://travis-ci.com/jatinchowdhury18/ChowPhaser)
+
 CHOW Phaser is an open-source phaser effect,
 based *very* loosely on the classic Shulte Compact
 Phasing "A".

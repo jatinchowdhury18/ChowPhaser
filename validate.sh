@@ -4,15 +4,15 @@
 install_pluginval_linux()
 {
     curl -L "https://github.com/Tracktion/pluginval/releases/download/latest_release/pluginval_Linux.zip" -o pluginval.zip
-    unzip pluginval
-    export pluginval=./pluginval
+    unzip pluginval > /dev/null
+    echo "./pluginval"
 }
 
 install_pluginval_mac()
 {
     curl -L "https://github.com/Tracktion/pluginval/releases/download/latest_release/pluginval_macOS.zip" -o pluginval.zip
-    unzip pluginval
-    export pluginval=pluginval.app/Contents/MacOS/pluginval
+    unzip pluginval > /dev/null
+    echo "pluginval.app/Contents/MacOS/pluginval"
 }
 
 install_pluginval_win()
@@ -29,11 +29,13 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     # declare -a plugins=()
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     pluginval=$(install_pluginval_mac)
-    declare -a plugins=("/Users/travis/Library/Audio/Plug-Ins/VST3/ChowPhaser.vst3" "/Users/travis/Library/Audio/Plug-Ins/Components/ChowPhaser.component")
+    declare -a plugins=("/Users/travis/Library/Audio/Plug-Ins/VST3/ChowPhaser.vst3")
 else
     pluginval=$(install_pluginval_win)
     declare -a plugins=("ChowPhaser/build/Release/VST3/ChowPhaser.vst3")
 fi
+
+echo "Pluginval installed at ${pluginval}"
 
 # run
 for plugin in "${plugins[@]}"; do
