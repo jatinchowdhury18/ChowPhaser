@@ -74,7 +74,7 @@ void ChowPhaser::processBlock (AudioBuffer<float>& buffer)
 
     bool freqMult = (bool) *freqMultParam;
     lfo.setFrequency (*lfoFreqParam * (freqMult ? 10.0f : 1.0f));
-    depthSmooth.setTargetValue (freqMult ? *lfoDepthParam * 0.8f : *lfoDepthParam);
+    depthSmooth.setTargetValue (freqMult ? lfoDepthParam->load() * 0.8f : lfoDepthParam->load());
     fbSmooth.setTargetValue (*fbParam);
     modSmooth.setTargetValue (std::abs (*modParam));
     const auto modChannel = int (*modParam >= 0.0f);
