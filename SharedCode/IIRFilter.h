@@ -16,8 +16,29 @@ public:
             z[i] = 0.0f;
     }
 
+    template <int N = order>
+    inline typename std::enable_if <N == 1, FloatType>::type
+    processSample (FloatType x) noexcept
+    {
+        FloatType y = z[1] + x * b[0];
+        z[order] = x * b[order] - y * a[order];
+        return y;
+    }
+
+    template <int N = order>
+    inline typename std::enable_if <N == 2, FloatType>::type
+    processSample (FloatType x) noexcept
+    {
+        FloatType y = z[1] + x * b[0];
+        z[1] = z[2] + x * b[1] - y * a[1];
+        z[order] = x * b[order] - y * a[order];
+        return y;
+    }
+
     /** Uses Transposed Direct Form II */
-    inline virtual FloatType processSample (FloatType x) noexcept
+    template <int N = order>
+    inline typename std::enable_if <(N > 2), FloatType>::type
+    processSample (FloatType x) noexcept
     {
         FloatType y = z[1] + x * b[0];
 
