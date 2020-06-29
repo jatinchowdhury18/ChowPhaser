@@ -12,8 +12,7 @@ public:
 
     virtual void reset()
     {
-        for(int i = 0; i <= order; ++i)
-            z[i] = 0.0f;
+        std::fill (z, &z[order+1], 0.0f);
     }
 
     template <int N = order>

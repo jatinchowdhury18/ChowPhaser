@@ -10,27 +10,27 @@ public:
 
     void reset (double sampleRate)
     {
-        for (int stage = 0; stage < numStages; ++stage)
-        {
-            for (int n = 0; n <= order; ++n)
-                z[stage][n] = 0.0f;
-        }
-
+        std::fill (z, &z[maxNumStages], 0.0f);
         fs = (float) sampleRate;
     }
 
-    inline float processSample (float x)
+    inline float processSample (float x, float numStages)
     {
-        for (int stage = 0; stage < numStages; stage++)
+        // process integer stages
+        for (int stage = 0; stage < (int) numStages; stage++)
             x = processStage (x, stage);
+
+        // process fractional stage
+        float stageFrac = numStages - (int) numStages;
+        x = stageFrac * processStage (x, (int) numStages) + (1.0f - stageFrac) * x;
 
         return x;
     }
 
     inline float processStage (float x, int stage)
     {
-        float y = z[stage][1] + x * b[0];
-        z[stage][order] = x * b[order] - y * a[order];
+        float y = z[stage] + x * b[0];
+        z[stage] = x * b[order] - y * a[order];
 
         return y;
     }
@@ -57,25 +57,16 @@ public:
         a[1] = (-a0s * K + a1s) / a0;
     }
 
-    static inline float calcPoleFreq (float a, float b, float c)
-    {
-        auto radicand = b*b - 4.0f*a*c;
-        if (radicand >= 0.0f)
-            return 0.0f;
-
-        return std::sqrt (-radicand) / (2.0f * a);
-    }
-
 private:
     enum
     {
         order = 1,
-        numStages = 8,
+        maxNumStages = 52, // must be 2 greater than the parameter allows
     };
 
     float a[order+1] = {1.0f, 0.0f};
     float b[order+1] = {1.0f, 0.0f};
-    float z[numStages][order+1];
+    float z[maxNumStages];
 
     float fs = 44100.0f;
 
