@@ -1,9 +1,10 @@
 #ifndef FBSECTION_H_INCLUDED
 #define FBSECTION_H_INCLUDED
 
+#include "TanhIIRFilter.h"
 #include "IIRFilter.h"
 
-class FBSection : public IIRFilterN<2>
+class FBSection : public TanhIIRFilter<2>
 {
 public:
     FBSection() {}

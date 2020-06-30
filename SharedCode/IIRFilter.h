@@ -58,10 +58,9 @@ public:
 protected:
     FloatType a[order+1];
     FloatType b[order+1];
-
-private:
     FloatType z[order+1];
 
+private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (IIRFilterN)
 };
 

@@ -29,6 +29,7 @@ jucer_project_files("shared"
 #           Resource  Resource
   .         .         .         "${CMAKE_CURRENT_LIST_DIR}/PluginBase.h"
   .         .         .         "${CMAKE_CURRENT_LIST_DIR}/IIRFilter.h"
+  .         .         .         "${CMAKE_CURRENT_LIST_DIR}/TanhIIRFilter.h"
 )
 
 # JUCE modules
