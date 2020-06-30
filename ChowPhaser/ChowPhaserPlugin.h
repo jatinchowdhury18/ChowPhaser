@@ -27,6 +27,7 @@ private:
     std::atomic<float>* freqMultParam = nullptr;
     std::atomic<float>* skewParam = nullptr;
     std::atomic<float>* stagesParam = nullptr;
+    std::atomic<float>* tanhParam = nullptr;
 
     dsp::Oscillator<float> lfo;
     FBSection fbSection;

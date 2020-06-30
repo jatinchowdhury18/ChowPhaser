@@ -10,6 +10,7 @@ namespace
     const String freqMultTag = "freq_mult";
     const String skewTag = "skew";
     const String stagesTag = "stages";
+    const String tanhTag = "tanh";
 }
 
 ChowPhaser::ChowPhaser()
@@ -21,10 +22,12 @@ ChowPhaser::ChowPhaser()
     freqMultParam = vts.getRawParameterValue (freqMultTag);
     skewParam = vts.getRawParameterValue (skewTag);
     stagesParam = vts.getRawParameterValue (stagesTag);
+    tanhParam = vts.getRawParameterValue (tanhTag);
 
     lfo.initialise ([] (float x) { return dsp::FastMathApproximations::sin<float> (x); });
 
-    scope = magicState.addPlotSource ("light", std::make_unique<LightMeter>());
+    scope = magicState.createAndAddObject<LightMeter> ("light");
+    magicState.addBackgroundProcessing (scope);
 }
 
 void ChowPhaser::addParameters (Parameters& params)
@@ -39,6 +42,7 @@ void ChowPhaser::addParameters (Parameters& params)
     params.push_back (std::make_unique<AudioParameterBool> (freqMultTag, "Freq. Mult", false));
     params.push_back (std::make_unique<AudioParameterFloat> (skewTag, "Skew", -3.0f, 3.0f, 0.0f));
     params.push_back (std::make_unique<AudioParameterFloat> (stagesTag, "Stages", stagesRange, 8.0f));
+    params.push_back (std::make_unique<AudioParameterBool> (tanhTag, "Dirt", false));
 }
 
 void ChowPhaser::prepareToPlay (double sampleRate, int samplesPerBlock)
@@ -93,6 +97,10 @@ void ChowPhaser::processBlock (AudioBuffer<float>& buffer)
     auto* yMod = buffer.getWritePointer (modChannel);
     auto* scopePtr = scopeBuffer.getWritePointer (0);
 
+    float (FBSection::*fbProcessLinFunc) (float) = &FBSection::processSample;
+    float (FBSection::*fbProcessTanhFunc) (float) = &FBSection::processSampleTanh;
+    auto fbProcessFunc = (bool) *tanhParam ? fbProcessTanhFunc : fbProcessLinFunc;
+
     for (int n = 0; n < numSamples; ++n)
     {
         constexpr float maxDepth = 20.0f;
@@ -103,7 +111,7 @@ void ChowPhaser::processBlock (AudioBuffer<float>& buffer)
         auto rVal = 100000.0f * std::pow (lightVal / 0.1f, -0.75f);
 
         fbSection.calcCoefs (rVal, -1.0f * fbSmooth.getNextValue());
-        noModPtr[n] = fbSection.processSample (monoPtr[n]);
+        noModPtr[n] = (fbSection.*fbProcessFunc) (monoPtr[n]);
         
         phaseSection.calcCoefs (rVal);
         auto modGain = modSmooth.getNextValue();
