@@ -18,6 +18,7 @@ matrix:
             - libxcursor-dev
             - libxinerama-dev
             - libxrandr-dev
+            - cmake
       env: run=bash
     - os: osx
       osx_image: xcode9.4
@@ -26,6 +27,7 @@ matrix:
       env: run=sh
 
 script:
+  - cmake --version
   - mkdir build && cd build/
   - cmake ..
   - cmake --build . --config Release
