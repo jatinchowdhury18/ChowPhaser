@@ -26,8 +26,9 @@ matrix:
       env: run=sh
 
 script:
-  - cmake -Bbuild
-  - cmake --build build --config Release
+  - mkdir build && cd build/
+  - cmake ..
+  - cmake --build . --config Release
 
   # Validate
   - $run validate.sh
