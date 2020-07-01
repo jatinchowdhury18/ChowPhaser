@@ -18,17 +18,33 @@ matrix:
             - libxcursor-dev
             - libxinerama-dev
             - libxrandr-dev
+            - webkit2gtk-4.0
       env: run=bash
     - os: osx
-      osx_image: xcode9.4
+      osx_image: xcode10.3
       env: run=sh
     - os: windows
       env: run=sh
 
-install: $run setup.sh
+install:
+  # upgrade cmake to 3.18
+  - |
+    if [[ $TRAVIS_OS_NAME == 'linux' ]]; then
+      echo "Upgrading CMake"
+      DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
+      mkdir ${DEPS_DIR} && cd ${DEPS_DIR}
+      travis_retry wget --no-check-certificate https://github.com/Kitware/CMake/releases/download/v3.18.0-rc3/cmake-3.18.0-rc3-Linux-x86_64.tar.gz
+      tar -xvf cmake-3.18.0-rc3-Linux-x86_64.tar.gz > /dev/null
+      mv cmake-3.18.0-rc3-Linux-x86_64 cmake-install
+      PATH=${DEPS_DIR}/cmake-install:${DEPS_DIR}/cmake-install/bin:$PATH
+      cd ${TRAVIS_BUILD_DIR}
+    fi
+
 script:
+  - cmake --version
   - cmake -Bbuild
   - cmake --build build --config Release
 
   # Validate
+  - cd ${TRAVIS_BUILD_DIR}
   - $run validate.sh

@@ -4,13 +4,13 @@ project(ChowPhaser VERSION 1.1.0)
 set(CMAKE_CXX_STANDARD 17)
 add_subdirectory(modules)
 
-juce_set_vst2_sdk_path(C:/SDKs/VST_SDK/VST2_SDK/)
+# juce_set_vst2_sdk_path(C:/SDKs/VST_SDK/VST2_SDK/)
 
 juce_add_plugin(ChowPhaserMono
     COMPANY_NAME chowdsp
     PLUGIN_MANUFACTURER_CODE chow
     PLUGIN_CODE Cph1
-    FORMATS AU VST3 VST Standalone
+    FORMATS AU VST3 Standalone #VST
     ProductName "ChowPhaser Mono")
 
 juce_generate_juce_header(ChowPhaserMono)
