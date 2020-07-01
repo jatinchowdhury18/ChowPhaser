@@ -26,6 +26,20 @@ matrix:
     - os: windows
       env: run=sh
 
+install:
+  # upgrade cmake
+  - |
+    if [[ $TRAVIS_OS_NAME == 'linux' ]]; then
+      echo "Upgrading CMake"
+      DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
+      mkdir ${DEPS_DIR} && cd ${DEPS_DIR}
+      travis_retry wget --no-check-certificate https://github.com/Kitware/CMake/releases/download/v3.18.0-rc3/cmake-3.18.0-rc3.tar.gz
+      tar -xvf cmake-3.18.0-rc3.tar.gz > /dev/null
+      mv cmake-3.18.0-rc3 cmake-install
+      PATH=${DEPS_DIR}/cmake-install:4{DEPS_DIR}/cmake-install/bin:$PATH
+      cd ${TRAVIS_BUILD_DIR}
+    fi
+
 script:
   - cmake --version
   - mkdir build && cd build/
@@ -33,4 +47,5 @@ script:
   - cmake --build . --config Release
 
   # Validate
+  -  cd ${TRAVIS_BUILD_DIR}
   - $run validate.sh
