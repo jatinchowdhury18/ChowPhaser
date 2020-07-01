@@ -27,7 +27,9 @@ private:
     std::atomic<float>* freqMultParam = nullptr;
     std::atomic<float>* skewParam = nullptr;
     std::atomic<float>* stagesParam = nullptr;
-    std::atomic<float>* tanhParam = nullptr;
+    std::atomic<float>* d1Param = nullptr;
+    std::atomic<float>* d2Param = nullptr;
+    std::atomic<float>* d3Param = nullptr;
 
     dsp::Oscillator<float> lfo;
     FBSection fbSection;
@@ -41,6 +43,9 @@ private:
     SmoothedValue<float, ValueSmoothingTypes::Linear> modSmooth;
     SmoothedValue<float, ValueSmoothingTypes::Linear> skewSmooth;
     SmoothedValue<float, ValueSmoothingTypes::Linear> stagesSmooth;
+    SmoothedValue<float, ValueSmoothingTypes::Linear> d1Smooth;
+    SmoothedValue<float, ValueSmoothingTypes::Linear> d2Smooth;
+    SmoothedValue<float, ValueSmoothingTypes::Linear> d3Smooth;
 
     AudioBuffer<float> scopeBuffer;
     foleys::MagicPlotSource* scope = nullptr;

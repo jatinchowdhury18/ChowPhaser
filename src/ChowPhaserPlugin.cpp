@@ -10,7 +10,9 @@ namespace
     const String freqMultTag = "freq_mult";
     const String skewTag = "skew";
     const String stagesTag = "stages";
-    const String tanhTag = "tanh";
+    const String d1Tag = "d1";
+    const String d2Tag = "d2";
+    const String d3Tag = "d3";
 }
 
 ChowPhaser::ChowPhaser()
@@ -22,7 +24,9 @@ ChowPhaser::ChowPhaser()
     freqMultParam = vts.getRawParameterValue (freqMultTag);
     skewParam = vts.getRawParameterValue (skewTag);
     stagesParam = vts.getRawParameterValue (stagesTag);
-    tanhParam = vts.getRawParameterValue (tanhTag);
+    d1Param = vts.getRawParameterValue (d1Tag);
+    d2Param = vts.getRawParameterValue (d2Tag);
+    d3Param = vts.getRawParameterValue (d3Tag);
 
     lfo.initialise ([] (float x) { return dsp::FastMathApproximations::sin<float> (x); });
 
@@ -42,7 +46,9 @@ void ChowPhaser::addParameters (Parameters& params)
     params.push_back (std::make_unique<AudioParameterBool> (freqMultTag, "Freq. Mult", false));
     params.push_back (std::make_unique<AudioParameterFloat> (skewTag, "Skew", -3.0f, 3.0f, 0.0f));
     params.push_back (std::make_unique<AudioParameterFloat> (stagesTag, "Stages", stagesRange, 8.0f));
-    params.push_back (std::make_unique<AudioParameterBool> (tanhTag, "Dirt", false));
+    params.push_back (std::make_unique<AudioParameterFloat> (d1Tag, "D1", 0.1f, 5.0f, 1.0f));
+    params.push_back (std::make_unique<AudioParameterFloat> (d2Tag, "D2", 0.1f, 5.0f, 1.0f));
+    params.push_back (std::make_unique<AudioParameterFloat> (d3Tag, "D3", 0.1f, 5.0f, 1.0f));
 }
 
 void ChowPhaser::prepareToPlay (double sampleRate, int samplesPerBlock)
@@ -56,6 +62,9 @@ void ChowPhaser::prepareToPlay (double sampleRate, int samplesPerBlock)
     modSmooth.reset (sampleRate, 0.05);
     skewSmooth.reset (sampleRate, 0.05);
     stagesSmooth.reset (sampleRate, 0.05);
+    d1Smooth.reset (sampleRate, 0.05f);
+    d2Smooth.reset (sampleRate, 0.05f);
+    d3Smooth.reset (sampleRate, 0.05f);
 
     monoBuffer.setSize (1, samplesPerBlock);
     noModBuffer.setSize (1, samplesPerBlock);
@@ -91,15 +100,14 @@ void ChowPhaser::processBlock (AudioBuffer<float>& buffer)
     const auto modChannel = int (*modParam >= 0.0f);
     skewSmooth.setTargetValue (std::pow (2.0f, *skewParam));
     stagesSmooth.setTargetValue (*stagesParam);
+    d1Smooth.setTargetValue (*d1Param);
+    d2Smooth.setTargetValue (*d2Param);
+    d3Smooth.setTargetValue (*d3Param);
 
     auto* monoPtr = monoBuffer.getWritePointer (0);
     auto* noModPtr = noModBuffer.getWritePointer (0);
     auto* yMod = buffer.getWritePointer (modChannel);
     auto* scopePtr = scopeBuffer.getWritePointer (0);
-
-    float (FBSection::*fbProcessLinFunc) (float) = &FBSection::processSample;
-    float (FBSection::*fbProcessTanhFunc) (float) = &FBSection::processSampleTanh;
-    auto fbProcessFunc = (bool) *tanhParam ? fbProcessTanhFunc : fbProcessLinFunc;
 
     for (int n = 0; n < numSamples; ++n)
     {
@@ -111,7 +119,8 @@ void ChowPhaser::processBlock (AudioBuffer<float>& buffer)
         auto rVal = 100000.0f * std::pow (lightVal / 0.1f, -0.75f);
 
         fbSection.calcCoefs (rVal, -1.0f * fbSmooth.getNextValue());
-        noModPtr[n] = (fbSection.*fbProcessFunc) (monoPtr[n]);
+        noModPtr[n] = fbSection.processSampleTanh (monoPtr[n], d1Smooth.getNextValue(),
+                                                   d2Smooth.getNextValue(), d3Smooth.getNextValue());
         
         phaseSection.calcCoefs (rVal);
         auto modGain = modSmooth.getNextValue();
