@@ -42,13 +42,11 @@ $ git clone https://github.com/jatinchowdhury18/CHOWPhaser.git
 $ cd CHOWPhaser
 
 # initialize and set up submodules
-$ ./setup.sh
+$ git submodule update --init --recursive
 
 # build with CMake
-$ ch CHOWPhaser
-$ mkdir build && cd build/
-$ cmake ..
-$ cmake --build . --config Release
+$ cmake -Bbuild
+$ cmake --build build --config Release
 ```
 
 ## License

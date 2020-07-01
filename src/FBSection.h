@@ -12,7 +12,7 @@ public:
     void reset (double sampleRate)
     {
         fs = (float) sampleRate;
-        IIRFilterN<2>::reset();
+        TanhIIRFilter<2>::reset();
     }
 
     inline void calcCoefs (float R, float fbAmt)

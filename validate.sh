@@ -29,10 +29,10 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     # declare -a plugins=()
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     pluginval=$(install_pluginval_mac)
-    declare -a plugins=("/Users/travis/Library/Audio/Plug-Ins/VST3/ChowPhaser.vst3")
+    declare -a plugins=("/Users/travis/Library/Audio/Plug-Ins/VST3/ChowPhaserMono.vst3")
 else
     pluginval=$(install_pluginval_win)
-    declare -a plugins=("ChowPhaser/build/Release/VST3/ChowPhaser.vst3")
+    declare -a plugins=("build/ChowPhaserMono_artefacts/Release/VST3/ChowPhaserMono.vst3")
 fi
 
 echo "Pluginval installed at ${pluginval}"
