@@ -25,7 +25,6 @@ matrix:
     - os: windows
       env: run=sh
 
-install: $run setup.sh
 script:
   - cmake -Bbuild
   - cmake --build build --config Release
