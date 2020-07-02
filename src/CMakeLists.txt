@@ -1,5 +1,9 @@
 target_sources(ChowPhaserMono PRIVATE
     ChowPhaserPlugin.cpp
-    LightMeter.cpp)
+    LightMeter.cpp
+    SingleChannelPhaser.cpp)
 
-juce_add_binary_data(BinaryData SOURCES gui.xml)
+target_sources(ChowPhaserStereo PRIVATE
+    ChowPhaserStereo.cpp
+    LightMeter.cpp
+    SingleChannelPhaser.cpp)
