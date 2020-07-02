@@ -8,14 +8,14 @@ add_subdirectory(modules)
 
 juce_add_plugin(ChowPhaserMono
     COMPANY_NAME chowdsp
-    PLUGIN_MANUFACTURER_CODE chow
+    PLUGIN_MANUFACTURER_CODE Chow
     PLUGIN_CODE Cph1
     FORMATS AU VST3 Standalone #VST
     ProductName "ChowPhaser Mono")
 
 juce_add_plugin(ChowPhaserStereo
     COMPANY_NAME chowdsp
-    PLUGIN_MANUFACTURER_CODE chow
+    PLUGIN_MANUFACTURER_CODE Chow
     PLUGIN_CODE Cph2
     FORMATS AU VST3 Standalone #VST
     ProductName "ChowPhaser Stereo")
