@@ -1,4 +1,5 @@
 #include "ChowPhaserStereo.h"
+#include "SliderLink.h"
 
 ChowPhaserStereo::ChowPhaserStereo()
 {
@@ -41,7 +42,13 @@ void ChowPhaserStereo::processBlock (AudioBuffer<float>& buffer)
 
 AudioProcessorEditor* ChowPhaserStereo::createEditor()
 {
-    return new foleys::MagicPluginEditor (magicState, BinaryData::stereo_gui_xml, BinaryData::stereo_gui_xmlSize);
+    auto builder = std::make_unique<foleys::MagicGUIBuilder> (magicState);
+
+    builder->registerJUCEFactories();
+    builder->registerJUCELookAndFeels();
+    builder->registerFactory ("SliderLink", &foleys::SliderLink::factory);
+
+    return new foleys::MagicPluginEditor (magicState, BinaryData::stereo_gui_xml, BinaryData::stereo_gui_xmlSize, std::move (builder));
 }
 
 // This creates new instances of the plugin...
