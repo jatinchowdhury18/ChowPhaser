@@ -2,11 +2,12 @@
 #include "gui/LightMeter.h"
 #include "gui/TooltipComp.h"
 #include "gui/InfoComp.h"
-#include "gui/MyLNF.h"
+#include "gui/TitleComp.h"
 
 ChowPhaser::ChowPhaser() :
     phaser (magicState)
 {
+    LookAndFeel::setDefaultLookAndFeel (&myLNF);
 }
 
 void ChowPhaser::addParameters (Parameters& params)
@@ -57,6 +58,7 @@ AudioProcessorEditor* ChowPhaser::createEditor()
     builder->registerLookAndFeel ("MyLNF", std::make_unique<MyLNF>());
     builder->registerFactory ("TooltipComp", &TooltipItem::factory);
     builder->registerFactory ("InfoComp", &InfoItem::factory);
+    builder->registerFactory ("TitleComp", &TitleItem::factory);
 
     return new foleys::MagicPluginEditor (magicState, BinaryData::gui_xml, BinaryData::gui_xmlSize, std::move (builder));
 }

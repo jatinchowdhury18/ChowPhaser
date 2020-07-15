@@ -34,6 +34,11 @@ public:
     InfoItem (foleys::MagicGUIBuilder& builder, const ValueTree& node) :
         foleys::GuiItem (builder, node)
     {
+        setColourTranslation ({
+            {"text1", InfoComp::text1ColourID},
+            {"text2", InfoComp::text2ColourID},
+        });
+
         infoComp = std::make_unique<InfoComp> (builder.getMagicState().getProcessor()->wrapperType);
         addAndMakeVisible (infoComp.get());
     }

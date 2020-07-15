@@ -7,12 +7,12 @@ InfoComp::InfoComp (const AudioProcessor::WrapperType wrapperType) :
     setColour (text2ColourID, Colours::white);
 
     addAndMakeVisible (linkButton);
-    linkButton.setFont (Font (15.0f), false, Justification::left);
+    linkButton.setFont (Font (17.0f).boldened(), false, Justification::left);
 }
 
 void InfoComp::paint (Graphics& g)
 {
-    g.setFont (15.0f);
+    g.setFont (17.0f);
     auto font = g.getCurrentFont();
     auto b = getLocalBounds();
 

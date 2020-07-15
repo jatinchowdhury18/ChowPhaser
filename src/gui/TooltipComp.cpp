@@ -18,7 +18,7 @@ void TooltipComponent::paint (Graphics& g)
     {
         auto b = getLocalBounds();
 
-        g.setFont (Font (15.0f).boldened());
+        g.setFont (Font (17.0f).boldened());
         if (name.isNotEmpty())
         {
             g.setColour (findColour (nameColourID));
