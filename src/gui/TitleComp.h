@@ -24,7 +24,7 @@ public:
         auto font = g.getCurrentFont();
         auto b = getLocalBounds();
 
-        auto drawText = [=, &g, &b] (String& text)
+        auto drawText = [=, &g, &b] (const String& text)
         {
             auto width = font.getStringWidth (text);
             g.drawFittedText (text, b.removeFromLeft (width), Justification::left, 1);  
