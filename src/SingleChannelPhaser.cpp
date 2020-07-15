@@ -1,5 +1,5 @@
 #include "SingleChannelPhaser.h"
-#include "LightMeter.h"
+#include "gui/LightMeter.h"
 
 namespace
 {

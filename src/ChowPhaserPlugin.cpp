@@ -1,7 +1,7 @@
 #include "ChowPhaserPlugin.h"
-#include "LightMeter.h"
-#include "TooltipComp.h"
-#include "MyLNF.h"
+#include "gui/LightMeter.h"
+#include "gui/TooltipComp.h"
+#include "gui/MyLNF.h"
 
 ChowPhaser::ChowPhaser() :
     phaser (magicState)
