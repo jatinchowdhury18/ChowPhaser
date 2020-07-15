@@ -2,29 +2,37 @@
 
 TooltipComponent::TooltipComponent()
 {
-    name = "NAME";
-    tip = "This is a test tip";
+    setColour (backgroundColourID, Colours::transparentBlack);
+    setColour (textColourID, Colours::lightgrey);
+    setColour (nameColourID, Colours::white);
+
     showTip.store (false);
     startTimer (123);
 }
 
 void TooltipComponent::paint (Graphics& g)
 {
-    g.fillAll (Colours::red);
+    g.fillAll (findColour (backgroundColourID));
 
     if (showTip.load())
     {
         auto b = getLocalBounds();
 
+        g.setFont (Font (15.0f).boldened());
         if (name.isNotEmpty())
         {
-            auto width = g.getCurrentFont().getStringWidth (name) + 10;
-            g.setColour (Colours::black);
-            g.drawFittedText (name + ":", b.removeFromLeft (width), Justification::centred, 1);
+            g.setColour (findColour (nameColourID));
+            g.drawFittedText (name + ":", b, Justification::topLeft, 1);
         }
 
-        g.setColour (Colours::white);
-        g.drawFittedText (tip, b, Justification::left, 1);
+        auto whitespace = String();
+        auto font = g.getCurrentFont();
+        while (font.getStringWidth(whitespace) < font.getStringWidth (name + ": "))
+            whitespace += " ";
+
+        g.setColour (findColour (textColourID));
+        g.drawMultiLineText (whitespace + tip, b.getX(),
+            b.getY() + (int) font.getHeight() - 3, b.getWidth(), Justification::topLeft);
     }
 }
 
@@ -55,7 +63,7 @@ void TooltipComponent::timerCallback()
         needsRepaint = newTip != tip;
 
         tip = newTip;
-        name = newComp->getName();
+        name = newComp->getName();   
 
         if (! showTip.load())
         {

@@ -9,6 +9,13 @@ class TooltipComponent : public Component,
 public:
     TooltipComponent();
 
+    enum ColourIDs
+    {
+        backgroundColourID,
+        textColourID,
+        nameColourID,
+    };
+
     void paint (Graphics& g) override;
     void timerCallback() override;
     String getTipFor (Component& c);
@@ -28,6 +35,12 @@ public:
     TooltipItem (foleys::MagicGUIBuilder& builder, const ValueTree& node) :
         foleys::GuiItem (builder, node)
     {
+        setColourTranslation ({
+            {"tooltip-background", TooltipComponent::backgroundColourID},
+            {"tooltip-text",       TooltipComponent::textColourID},
+            {"tooltip-name",       TooltipComponent::nameColourID},
+        });
+
         addAndMakeVisible (tooltipComp);
     }
 

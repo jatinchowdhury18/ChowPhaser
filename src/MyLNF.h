@@ -32,7 +32,7 @@ public:
 
         const auto toAngle = rotaryStartAngle + sliderPos * (rotaryEndAngle - rotaryStartAngle);
         const juce::Colour fill = slider.findColour (juce::Slider::rotarySliderFillColourId);
-        constexpr float arcFactor = 0.85f;
+        constexpr float arcFactor = 0.9f;
 
         Path valueArc;
         valueArc.addPieSegment (bounds, rotaryStartAngle, rotaryEndAngle, arcFactor);
