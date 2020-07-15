@@ -1,6 +1,7 @@
 #include "ChowPhaserPlugin.h"
 #include "LightMeter.h"
 #include "TooltipComp.h"
+#include "MyLNF.h"
 
 ChowPhaser::ChowPhaser() :
     phaser (magicState)
@@ -51,6 +52,8 @@ AudioProcessorEditor* ChowPhaser::createEditor()
     auto builder = std::make_unique<foleys::MagicGUIBuilder> (magicState);
     builder->registerJUCEFactories();
     builder->registerJUCELookAndFeels();
+
+    builder->registerLookAndFeel ("MyLNF", std::make_unique<MyLNF>());
     builder->registerFactory ("TooltipComp", &TooltipItem::factory);
 
     return new foleys::MagicPluginEditor (magicState, BinaryData::gui_xml, BinaryData::gui_xmlSize, std::move (builder));
