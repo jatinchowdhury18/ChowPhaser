@@ -1,5 +1,5 @@
 #include "SingleChannelPhaser.h"
-#include "LightMeter.h"
+#include "gui/LightMeter.h"
 
 namespace
 {
@@ -41,9 +41,12 @@ void SingleChannelPhaser::addParameters (Parameters& params, String prefix, floa
     NormalisableRange<float> stagesRange (1.0f, 50.0f);
     stagesRange.setSkewForCentre (12.0f);
 
+    NormalisableRange<float> freqRange (0.0f, 16.0f);
+    freqRange.setSkewForCentre (4.0f);
+
     params.push_back (std::make_unique<AudioParameterFloat> (prefix + fbTag, "Feedback", 0.0f, 0.95f, 0.0f));
     params.push_back (std::make_unique<AudioParameterFloat> (prefix + modTag, "Modulation", modRange, 1.0f, 0.0f));
-    params.push_back (std::make_unique<AudioParameterFloat> (prefix + lfoFreqTag, "LFO Freq", 0.0f, 16.0f, 0.0f));
+    params.push_back (std::make_unique<AudioParameterFloat> (prefix + lfoFreqTag, "LFO Freq", freqRange, 0.0f));
     params.push_back (std::make_unique<AudioParameterFloat> (prefix + lfoDepthTag, "LFO Depth", 0.0f, 0.95f, 0.0f));
     params.push_back (std::make_unique<AudioParameterBool>  (prefix + freqMultTag, "Freq. Mult", false));
     params.push_back (std::make_unique<AudioParameterFloat> (prefix + skewTag, "Skew", -3.0f, 3.0f, 0.0f));

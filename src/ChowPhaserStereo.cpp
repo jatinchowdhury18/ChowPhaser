@@ -1,5 +1,5 @@
 #include "ChowPhaserStereo.h"
-#include "SliderLink.h"
+#include "gui/SliderLink.h"
 
 ChowPhaserStereo::ChowPhaserStereo()
 {
