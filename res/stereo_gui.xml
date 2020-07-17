@@ -32,22 +32,25 @@
   <View id="root" resizable="1" resize-corner="1" flex-direction="column"
         padding="0" background-color="FF16161D" width="800" height="500"
         margin="0">
-    <View margin="0" padding="0" border="" flex-direction="row" flex-grow="0.2"
-          background-color="FF16161D">
+    <View padding="0" border="" flex-direction="row" flex-grow="0.23" background-color="FF16161D"
+          margin="2">
       <View background-color="00000000" flex-grow="0.02"/>
       <View flex-direction="column" padding="0" margin="0" background-color="FF16161D">
         <TitleComp background-color="FF16161D" flex-grow="0.1" padding="" margin="0"
                    title="ChowPhaser" subtitle="(Stereo)" text2="FF76767F" name="ChowPhaser Stereo"
-                   tooltip="Hold SHIFT while moving a knob to use the control in stereo-link mode."/>
+                   tooltip="Hold SHIFT while moving a knob to use the control in stereo-link mode."
+                   font="45"/>
         <InfoComp flex-grow="0.06" background-color="FF16161D" margin="0" padding="0"
                   text1="FF76767F"/>
       </View>
       <Plot source="left_light" plot-decay="0.8" plot-color="FFB34FB6" plot-fill-color="FF2A2A35"
-            background-color="FF000000" margin="0" flex-grow="0.2" border-color="FF2A2A35"
-            border="3"/>
+            background-color="FF000000" margin="5" flex-grow="0.25" border-color="FF2A2A35"
+            border="3" name="Plot" tooltip="Visualization of the left LFO movement."
+            flex-shrink="1.0"/>
       <Plot source="right_light" plot-decay="0.8" plot-color="FFB34FB6" plot-fill-color="FF2A2A35"
-            background-color="FF000000" margin="0" flex-grow="0.2" border-color="FF2A2A35"
-            border="3"/>
+            background-color="FF000000" margin="5" flex-grow="0.25" border-color="FF2A2A35"
+            border="3" name="Plot" tooltip="Visualization of the right LFO movement."
+            padding=""/>
     </View>
     <View margin="0" padding="0" background-color="FF16161D">
       <View padding="0" background-color="FF16161D" margin="2">
@@ -60,27 +63,24 @@
           <SliderLink caption="Skew" parameter="left_skew" class="SliderClass" link-param="right_skew"
                       tooltip="Skews the LFO to accentuate different parts of the oscillation."
                       name="Skew"/>
-          <ToggleButton flex-grow="0.3" parameter="left_freq_mult" text="10x" padding="0"
-                        max-height="40" margin="2" background-color="FF2A2A35" name="10x"
-                        tooltip="Multiply the LFO frequency by 10x."/>
         </View>
         <View flex-direction="column" padding="0" background-color="FF2A2A35"
               margin="5">
           <SliderLink parameter="left_feedback" caption="Feedback" class="SliderClass"
-                      link-param="right_feedback" name="Feedback" tooltip="Sets the amount of feedback over the &quot;feedback&quot; section of the phaser."/>
+                      link-param="right_feedback" name="Feedback" tooltip="Sets the amount of feedback over the first two allpass stages of the phaser."/>
           <SliderLink caption="Modulation" parameter="left_mod" class="SliderClass"
-                      link-param="right_mod" name="Modulation" tooltip="Sets the modulation depth of the phaser. Positive values modulate the right channel, negative values modulate the left channel."/>
+                      link-param="right_mod" name="Modulation" tooltip="Sets the modulation depth of the phaser."/>
           <SliderLink caption="Stages" parameter="left_stages" class="SliderClass"
-                      link-param="right_stages" name="Stages" tooltip="Choose how many modulation stages to use."/>
+                      link-param="right_stages" name="Stages" tooltip="Chooses how many allpass stages to use for modulation."/>
         </View>
         <View background-color="FF2A2A35" flex-direction="column" padding="0"
               margin="5">
           <SliderLink class="SliderClass" parameter="left_d1" caption="Drive" link-param="right_d1"
-                      name="Drive" tooltip="Adds distortion to the phaser filters."/>
+                      name="Drive" tooltip="Adds distortion to the feedback allpass stages."/>
           <SliderLink class="SliderClass" parameter="left_d2" caption="Thrash" link-param="right_d2"
-                      name="Thrash" tooltip="Adds level-dependent distortion to the phaser."/>
+                      name="Thrash" tooltip="Adds resonant distortion to the feedback allpass stages."/>
           <SliderLink class="SliderClass" parameter="left_d3" caption="Dirt" link-param="right_d3"
-                      name="Dirt" tooltip="Adds feedback distortion to the phaser allpass sections."/>
+                      name="Dirt" tooltip="Adds frequency-dependent distortion to the feedback allpass stages."/>
         </View>
       </View>
       <View padding="0" background-color="FF16161D" margin="2">
@@ -93,31 +93,41 @@
           <SliderLink caption="Skew" parameter="right_skew" class="SliderClass" link-param="left_skew"
                       tooltip="Skews the LFO to accentuate different parts of the oscillation."
                       name="Skew"/>
-          <ToggleButton flex-grow="0.3" parameter="right_freq_mult" text="10x" padding="0"
-                        max-height="40" background-color="FF2A2A35" margin="2" name="10x"
-                        tooltip="Multiply the LFO frequency by 10x."/>
         </View>
         <View flex-direction="column" padding="0" background-color="FF2A2A35"
               margin="5">
           <SliderLink parameter="right_feedback" caption="Feedback" class="SliderClass"
-                      link-param="left_feedback" name="Feedback" tooltip="Sets the amount of feedback over the &quot;feedback&quot; section of the phaser."/>
+                      link-param="left_feedback" name="Feedback" tooltip="Sets the amount of feedback over the first two allpass stages of the phaser."/>
           <SliderLink caption="Modulation" parameter="right_mod" class="SliderClass"
-                      link-param="left_mod" name="Modulation" tooltip="Sets the modulation depth of the phaser. Positive values modulate the right channel, negative values modulate the left channel."/>
+                      link-param="left_mod" name="Modulation" tooltip="Sets the modulation depth of the phaser."/>
           <SliderLink caption="Stages" parameter="right_stages" class="SliderClass"
-                      link-param="left_stages" name="Stages" tooltip="Choose how many modulation stages to use."/>
+                      link-param="left_stages" name="Stages" tooltip="Chooses how many allpass stages to use for modulation."/>
         </View>
         <View background-color="FF2A2A35" flex-direction="column" padding="0"
               margin="5">
           <SliderLink class="SliderClass" parameter="right_d1" caption="Drive" link-param="left_d1"
-                      name="Drive" tooltip="Adds distortion to the phaser filters."/>
+                      name="Drive" tooltip="Adds distortion to the feedback allpass stages."/>
           <SliderLink class="SliderClass" parameter="right_d2" caption="Thrash" link-param="left_d2"
-                      name="Thrash" tooltip="Adds level-dependent distortion to the phaser."/>
+                      name="Thrash" tooltip="Adds resonant distortion to the feedback allpass stages."/>
           <SliderLink class="SliderClass" parameter="right_d3" caption="Dirt" link-param="left_d3"
-                      name="Dirt" tooltip="Adds feedback distortion to the phaser allpass sections."/>
+                      name="Dirt" tooltip="Adds frequency-dependent distortion to the feedback allpass stages."/>
         </View>
       </View>
     </View>
-    <TooltipComp flex-grow="0.13" background-color="FF16161D" margin="2" tooltip-background="FF16161D"
+    <View background-color="00000000" flex-grow="0.08" flex-direction="row"
+          margin="0" padding="0">
+      <View background-color="00000000" flex-grow="0.015"/>
+      <ToggleButton flex-grow="1.0" parameter="left_freq_mult" text="10x" padding="0"
+                    max-height="40" margin="0" background-color="00000000" name="10x"
+                    tooltip="Multiplies the LFO frequency by 10x." toggle-tick="FF23E9C5"
+                    lookAndFeel="MyLNF"/>
+      <View flex-grow="0.015" background-color="00000000"/>
+      <ToggleButton flex-grow="1.0" parameter="right_freq_mult" text="10x" padding="0"
+                    max-height="40" background-color="00000000" margin="0" name="10x"
+                    tooltip="Multiplies the LFO frequency by 10x." toggle-tick="FF23E9C5"
+                    lookAndFeel="MyLNF"/>
+    </View>
+    <TooltipComp flex-grow="0.1" background-color="FF16161D" margin="2" tooltip-background="FF16161D"
                  tooltip-name="FF23E9C5"/>
   </View>
 </magic>

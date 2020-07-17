@@ -8,7 +8,7 @@ TitleComp::TitleComp()
 
 void TitleComp::paint (Graphics& g)
 {
-    g.setFont (Font ((float) getHeight()).boldened());
+    g.setFont (Font (font).boldened());
     auto font = g.getCurrentFont();
     auto b = getLocalBounds();
 
@@ -25,8 +25,10 @@ void TitleComp::paint (Graphics& g)
     drawText (subtitle);
 }
 
-void TitleComp::setStrings (String newTitle, String newSubtitle)
+void TitleComp::setStrings (String newTitle, String newSubtitle, float newFont)
 {
+    font = newFont == 0.0f ? (float) getHeight() : newFont;
+
     title = newTitle;
     subtitle = newSubtitle;
     repaint();
@@ -48,7 +50,9 @@ void TitleItem::update()
 {
     auto titleString    = magicBuilder.getStyleProperty (title,    configNode).toString();
     auto subtitleString = magicBuilder.getStyleProperty (subtitle, configNode).toString();
-    comp.setStrings (titleString, subtitleString);
+    auto fontVal = (float) magicBuilder.getStyleProperty (font, configNode);
+
+    comp.setStrings (titleString, subtitleString, fontVal);
 }
 
 std::vector<foleys::SettableProperty> TitleItem::getSettableProperties() const
@@ -56,8 +60,10 @@ std::vector<foleys::SettableProperty> TitleItem::getSettableProperties() const
     std::vector<foleys::SettableProperty> properties;
     properties.push_back ({ configNode, title,    foleys::SettableProperty::Text, {}, {} });
     properties.push_back ({ configNode, subtitle, foleys::SettableProperty::Text, {}, {} });
+    properties.push_back ({ configNode, font,     foleys::SettableProperty::Number, 0.0f, {} });
     return properties;
 }
 
 const Identifier TitleItem::title    { "title" };
 const Identifier TitleItem::subtitle { "subtitle" };
+const Identifier TitleItem::font     { "font" };

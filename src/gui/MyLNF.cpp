@@ -29,12 +29,14 @@ void MyLNF::drawRotarySlider (juce::Graphics& g, int x, int y, int width, int he
 
     const auto bounds = juce::Rectangle<int> (x, y, diameter, diameter).toFloat();   
 
-    auto b = knob->getBounds().toFloat();
-    knob->setTransform (AffineTransform::rotation (MathConstants<float>::twoPi * ((sliderPos - 0.5f) * 300.0f / 360.0f),
+    auto b = pointer->getBounds().toFloat();
+    auto b2 = knob->getBounds().toFloat();
+    pointer->setTransform (AffineTransform::rotation (MathConstants<float>::twoPi * ((sliderPos - 0.5f) * 300.0f / 360.0f),
         b.getCentreX(), b.getCentreY()));
 
     auto knobBounds = (bounds * 0.75f).withCentre (centre);
     knob->drawWithin (g, knobBounds, RectanglePlacement::stretchToFit, 1.0f);
+    pointer->drawWithin (g, knobBounds, RectanglePlacement::stretchToFit, 1.0f);
 
     const auto toAngle = rotaryStartAngle + sliderPos * (rotaryEndAngle - rotaryStartAngle);
     const juce::Colour fill = slider.findColour (juce::Slider::rotarySliderFillColourId);
@@ -51,4 +53,29 @@ void MyLNF::drawRotarySlider (juce::Graphics& g, int x, int y, int width, int he
                        Colour (0xffb54fb7), { centre.x + radius, centre.y }, false);
     g.setGradientFill (gr);
     g.fillPath (valueArc);
+}
+
+void MyLNF::drawToggleButton (Graphics& g, ToggleButton& button,
+                              bool shouldDrawButtonAsHighlighted, bool shouldDrawButtonAsDown)
+{
+    auto fontSize = jmin (15.0f, (float) button.getHeight() * 0.75f);
+    auto tickWidth = fontSize * 1.1f;
+
+    drawTickBox (g, button, 4.0f, ((float) button.getHeight() - tickWidth) * 0.5f,
+                 tickWidth, tickWidth,
+                 button.getToggleState(),
+                 button.isEnabled(),
+                 shouldDrawButtonAsHighlighted,
+                 shouldDrawButtonAsDown);
+
+    g.setColour (button.findColour (ToggleButton::textColourId));
+    g.setFont (Font (fontSize).boldened());
+
+    if (! button.isEnabled())
+        g.setOpacity (0.5f);
+
+    g.drawFittedText (button.getButtonText(),
+                      button.getLocalBounds().withTrimmedLeft (roundToInt (tickWidth) + 10)
+                                             .withTrimmedRight (2),
+                      Justification::centredLeft, 10);
 }

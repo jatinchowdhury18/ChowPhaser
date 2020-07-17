@@ -14,8 +14,12 @@ public:
                            float sliderPos, float rotaryStartAngle,
                            float rotaryEndAngle, juce::Slider& slider) override;
 
+    void drawToggleButton (Graphics& g, ToggleButton& button,
+                           bool shouldDrawButtonAsHighlighted, bool shouldDrawButtonAsDown) override;
+
 private:
     std::unique_ptr<Drawable> knob = Drawable::createFromImageData (BinaryData::knob_svg, BinaryData::knob_svgSize);
+    std::unique_ptr<Drawable> pointer = Drawable::createFromImageData (BinaryData::pointer_svg, BinaryData::pointer_svgSize);
 
     Typeface::Ptr roboto;
     Typeface::Ptr robotoBold;
