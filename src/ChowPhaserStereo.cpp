@@ -1,10 +1,15 @@
 #include "ChowPhaserStereo.h"
 #include "gui/SliderLink.h"
+#include "gui/TooltipComp.h"
+#include "gui/InfoComp.h"
+#include "gui/TitleComp.h"
 
 ChowPhaserStereo::ChowPhaserStereo()
 {
     phasers[0] = std::make_unique<SingleChannelPhaser> (magicState, "left_");
     phasers[1] = std::make_unique<SingleChannelPhaser> (magicState, "right_");
+
+    LookAndFeel::setDefaultLookAndFeel (&myLNF);
 }
 
 void ChowPhaserStereo::addParameters (Parameters& params)
@@ -46,7 +51,12 @@ AudioProcessorEditor* ChowPhaserStereo::createEditor()
 
     builder->registerJUCEFactories();
     builder->registerJUCELookAndFeels();
+
+    builder->registerLookAndFeel ("MyLNF", std::make_unique<MyLNF>());
     builder->registerFactory ("SliderLink", &foleys::SliderLink::factory);
+    builder->registerFactory ("TooltipComp", &TooltipItem::factory);
+    builder->registerFactory ("InfoComp", &InfoItem::factory);
+    builder->registerFactory ("TitleComp", &TitleItem::factory);
 
     return new foleys::MagicPluginEditor (magicState, BinaryData::stereo_gui_xml, BinaryData::stereo_gui_xmlSize, std::move (builder));
 }

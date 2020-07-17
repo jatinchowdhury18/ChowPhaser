@@ -4,6 +4,7 @@
 #include <JuceHeader.h>
 #include "PluginBase.h"
 #include "SingleChannelPhaser.h"
+#include "gui/MyLNF.h"
 
 class ChowPhaserStereo : public PluginBase<ChowPhaserStereo>
 {
@@ -20,6 +21,8 @@ public:
 private:
     std::unique_ptr<SingleChannelPhaser> phasers[2];
     AudioBuffer<float> noModBuffer;
+
+    MyLNF myLNF;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChowPhaserStereo)
 };
