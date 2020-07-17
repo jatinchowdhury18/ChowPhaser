@@ -3,7 +3,8 @@
 
 #include "JuceHeader.h"
 
-class LightMeter : public foleys::MagicPlotSource
+class LightMeter : public foleys::MagicPlotSource,
+                   public SettableTooltipClient
 {
 public:
     LightMeter() {}

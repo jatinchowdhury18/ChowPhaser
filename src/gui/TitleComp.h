@@ -16,11 +16,12 @@ public:
     };
 
     void paint (Graphics& g) override;
-    void setStrings (String newTitle, String newSubtitle);
+    void setStrings (String newTitle, String newSubtitle, float font);
 
 private:
     String title;
     String subtitle;
+    float font = 0.0f;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TitleComp)
 };
@@ -32,6 +33,7 @@ public:
 
     static const Identifier title;
     static const Identifier subtitle;
+    static const Identifier font;
 
     TitleItem (foleys::MagicGUIBuilder& builder, const ValueTree& node);
 
