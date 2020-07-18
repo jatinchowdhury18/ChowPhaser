@@ -6,7 +6,7 @@ CHOW Phaser is an open-source phaser effect,
 based *very* loosely on the classic Shulte Compact
 Phasing "A".
 
-<img src="https://github.com/jatinchowdhury18/ChowPhaser/blob/master/res/screenshot_stereo.PNG?raw=true" alt="Pic" height="350">
+<img src="https://github.com/jatinchowdhury18/ChowPhaser/blob/master/res/screenshot_stereo.PNG?raw=true" alt="Pic" height="450">
 
 
 ## Installation
