@@ -16,6 +16,7 @@ public:
     void releaseResources() override;
     void processBlock (AudioBuffer<float>& buffer) override;
 
+    bool isBusesLayoutSupported (const BusesLayout& layouts) const override;
     AudioProcessorEditor* createEditor() override;
 
 private:
