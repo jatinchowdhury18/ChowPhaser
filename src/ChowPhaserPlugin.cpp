@@ -49,6 +49,19 @@ void ChowPhaser::processBlock (AudioBuffer<float>& buffer)
     buffer.copyFrom (1 - modChannel, 0, noModBuffer.getReadPointer (0), numSamples);
 }
 
+bool ChowPhaser::isBusesLayoutSupported (const BusesLayout& layouts) const
+{
+    // only supports stereo
+    if (layouts.getMainOutputChannelSet() != AudioChannelSet::stereo())
+        return false;
+
+    // input and output layout must be the same
+    if (layouts.getMainOutputChannelSet() != layouts.getMainInputChannelSet())
+        return false;
+    
+    return true;
+}
+
 AudioProcessorEditor* ChowPhaser::createEditor()
 {
     auto builder = std::make_unique<foleys::MagicGUIBuilder> (magicState);
