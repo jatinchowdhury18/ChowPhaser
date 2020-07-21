@@ -3,3 +3,7 @@ build*/
 
 # vscode settings
 .vscode/
+
+# extras
+writing/
+demo/

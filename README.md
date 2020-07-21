@@ -1,10 +1,14 @@
 # CHOW Phaser
 
+[![Download Latest](https://img.shields.io/badge/download-latest-yellow.svg)](https://github.com/jatinchowdhury18/ChowPhaser/releases/latest)
 [![Build Status](https://travis-ci.com/jatinchowdhury18/ChowPhaser.svg?token=Ub9niJrqG1Br1qaaxp7E&branch=master)](https://travis-ci.com/jatinchowdhury18/ChowPhaser)
+[![License](https://img.shields.io/badge/License-BSD-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+[![Downloads](https://img.shields.io/github/downloads/jatinchowdhury18/ChowPhaser/total)](https://somsubhra.com/github-release-stats/?username=jatinchowdhury18&repository=ChowPhaser)
 
 CHOW Phaser is an open-source phaser effect,
 based *very* loosely on the classic Shulte Compact
-Phasing "A".
+Phasing "A". Check out the video demo on
+[YouTube](https://youtu.be/QuDWKLaUi_Q).
 
 <img src="https://github.com/jatinchowdhury18/ChowPhaser/blob/master/res/screenshot_stereo.PNG?raw=true" alt="Pic" height="450">
 
