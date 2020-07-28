@@ -64,6 +64,11 @@ $ cmake -Bbuild
 $ cmake --build build --config Release
 ```
 
+## Credits
+
+- GUI Design - [Margus Mets](mailto:hello@mmcreative.eu)
+- GUI Framework - [Plugin GUI Magic](https://github.com/ffAudio/PluginGUIMagic)
+
 ## License
 
 CHOWPhaser is open source, and is licensed under the BSD 3-clause license.
