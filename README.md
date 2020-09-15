@@ -20,6 +20,9 @@ To install, simply download the
 If you would like to try the most recent updates
 (potentially unstable), see the
 [`bin/`](./bin) folder.
+Linux users can find builds available on the
+[Open Build Service](https://build.opensuse.org/package/show/home:kill_it:JUCE/ChowPhaser),
+courtesy of Konstantin Voinov.
 
 ## Usage
 
