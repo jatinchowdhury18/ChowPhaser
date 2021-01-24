@@ -3,7 +3,7 @@
 
 #include "IIRFilter.h"
 
-template<int order, typename FloatType=float>
+template <int order, typename FloatType = float>
 class TanhIIRFilter
 {
 public:
@@ -11,12 +11,12 @@ public:
 
     virtual void reset()
     {
-        std::fill (z, &z[order+1], 0.0f);
+        std::fill (z, &z[order + 1], 0.0f);
     }
 
     template <int N = order>
-    inline typename std::enable_if <N == 2, FloatType>::type
-    processSampleTanh (FloatType x, float d1, float d2, float d3) noexcept
+    inline typename std::enable_if<N == 2, FloatType>::type
+        processSampleTanh (FloatType x, float d1, float d2, float d3) noexcept
     {
         FloatType y = z[1] + x * b[0];
         auto yDrive = drive (y, d3);
@@ -31,9 +31,9 @@ public:
     }
 
 protected:
-    FloatType a[order+1];
-    FloatType b[order+1];
-    FloatType z[order+1];
+    FloatType a[order + 1];
+    FloatType b[order + 1];
+    FloatType z[order + 1];
 
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TanhIIRFilter)

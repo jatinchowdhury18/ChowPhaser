@@ -27,19 +27,18 @@ void TooltipComponent::paint (Graphics& g)
 
         auto whitespace = String();
         auto font = g.getCurrentFont();
-        while (font.getStringWidth(whitespace) < font.getStringWidth (name + ": "))
+        while (font.getStringWidth (whitespace) < font.getStringWidth (name + ": "))
             whitespace += " ";
 
         g.setColour (findColour (textColourID));
-        g.drawMultiLineText (whitespace + tip, b.getX(),
-            b.getY() + (int) font.getHeight() - 3, b.getWidth(), Justification::topLeft);
+        g.drawMultiLineText (whitespace + tip, b.getX(), b.getY() + (int) font.getHeight() - 3, b.getWidth(), Justification::topLeft);
     }
 }
 
 String TooltipComponent::getTipFor (Component& c)
 {
     if (Process::isForegroundProcess()
-         && ! ModifierKeys::currentModifiers.isAnyMouseButtonDown())
+        && ! ModifierKeys::currentModifiers.isAnyMouseButtonDown())
     {
         if (auto* ttc = dynamic_cast<TooltipClient*> (&c))
             if (! c.isCurrentlyBlockedByAnotherModalComponent())
@@ -63,7 +62,7 @@ void TooltipComponent::timerCallback()
         needsRepaint = newTip != tip;
 
         tip = newTip;
-        name = newComp->getName();   
+        name = newComp->getName();
 
         if (! showTip.load())
         {

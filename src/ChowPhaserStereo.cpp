@@ -1,8 +1,8 @@
 #include "ChowPhaserStereo.h"
-#include "gui/SliderLink.h"
-#include "gui/TooltipComp.h"
 #include "gui/InfoComp.h"
+#include "gui/SliderLink.h"
 #include "gui/TitleComp.h"
+#include "gui/TooltipComp.h"
 
 ChowPhaserStereo::ChowPhaserStereo()
 {
@@ -54,7 +54,7 @@ bool ChowPhaserStereo::isBusesLayoutSupported (const BusesLayout& layouts) const
     // input and output layout must be the same
     if (layouts.getMainOutputChannelSet() != layouts.getMainInputChannelSet())
         return false;
-    
+
     return true;
 }
 

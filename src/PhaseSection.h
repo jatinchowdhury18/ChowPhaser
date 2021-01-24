@@ -40,7 +40,7 @@ public:
         // component values
         // R = jmax (1.0f, R);
         constexpr float C = (float) 25e-9;
-        const float RC = R*C;
+        const float RC = R * C;
 
         // analog coefs
         const float b0s = RC;
@@ -51,7 +51,7 @@ public:
         // bilinear transform
         const auto K = 2.0f * fs;
         const auto a0 = a0s * K + a1s;
-        b[0] = ( b0s * K + b1s) / a0;
+        b[0] = (b0s * K + b1s) / a0;
         b[1] = (-b0s * K + b1s) / a0;
         a[0] = 1.0f;
         a[1] = (-a0s * K + a1s) / a0;
@@ -64,8 +64,8 @@ private:
         maxNumStages = 52, // must be 2 greater than the parameter allows
     };
 
-    float a[order+1] = {1.0f, 0.0f};
-    float b[order+1] = {1.0f, 0.0f};
+    float a[order + 1] = { 1.0f, 0.0f };
+    float b[order + 1] = { 1.0f, 0.0f };
     float z[maxNumStages];
 
     float fs = 44100.0f;

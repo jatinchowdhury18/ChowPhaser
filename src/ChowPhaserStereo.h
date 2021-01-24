@@ -1,10 +1,10 @@
 #ifndef CHOWPHASERPLUGIN_H_INCLUDED
 #define CHOWPHASERPLUGIN_H_INCLUDED
 
-#include <JuceHeader.h>
 #include "PluginBase.h"
 #include "SingleChannelPhaser.h"
 #include "gui/MyLNF.h"
+#include <JuceHeader.h>
 
 class ChowPhaserStereo : public PluginBase<ChowPhaserStereo>
 {

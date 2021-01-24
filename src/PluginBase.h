@@ -1,4 +1,4 @@
-# pragma once
+#pragma once
 
 #include "JuceHeader.h"
 
@@ -9,7 +9,7 @@
  * and releaseResources (from AudioProcessor),
  * as well as processBlock, and addParameters.
  * */
-template<class Processor>
+template <class Processor>
 class PluginBase : public AudioProcessor
 {
 public:
@@ -19,11 +19,11 @@ public:
     const String getName() const override { return JucePlugin_Name; }
 
     bool acceptsMidi() const override { return false; }
-    bool producesMidi() const override { return false; } 
+    bool producesMidi() const override { return false; }
     bool isMidiEffect() const override { return false; }
 
     double getTailLengthSeconds() const override { return 0.0; }
-    
+
     int getNumPrograms() override { return 1; }
     int getCurrentProgram() override { return 0; }
     void setCurrentProgram (int) override {}
@@ -53,66 +53,72 @@ private:
 };
 
 // check is template class has addParameters
-template<typename T>
+template <typename T>
 class HasAddParameters
 {
     typedef char one;
     typedef long two;
 
-    template <typename C> static one test (decltype(&C::addParameters));
-    template <typename C> static two test (...);
+    template <typename C>
+    static one test (decltype (&C::addParameters));
+    template <typename C>
+    static two test (...);
 
 public:
-    enum { value = sizeof (test<T> (0)) == sizeof (char) };
+    enum
+    {
+        value = sizeof (test<T> (0)) == sizeof (char)
+    };
 };
 
-template<class Processor>
-PluginBase<Processor>::PluginBase() :
-    AudioProcessor (BusesProperties()
-        .withInput ("Input", AudioChannelSet::stereo(), true)
-        .withOutput ("Output", AudioChannelSet::stereo(), true)),
-    vts (*this, nullptr, Identifier ("Parameters"), createParameterLayout())
+template <class Processor>
+PluginBase<Processor>::PluginBase() : AudioProcessor (BusesProperties()
+                                                          .withInput ("Input", AudioChannelSet::stereo(), true)
+                                                          .withOutput ("Output", AudioChannelSet::stereo(), true)),
+                                      vts (*this, nullptr, Identifier ("Parameters"), createParameterLayout())
 {
 }
 
-template<class Processor>
-PluginBase<Processor>::~PluginBase() {}
+template <class Processor>
+PluginBase<Processor>::~PluginBase()
+{
+}
 
-template<class Processor>
+template <class Processor>
 AudioProcessorValueTreeState::ParameterLayout PluginBase<Processor>::createParameterLayout()
 {
     Parameters params;
 
     static_assert (HasAddParameters<Processor>::value,
-        "Processor class MUST contain a static addParameters function!");
+                   "Processor class MUST contain a static addParameters function!");
     Processor::addParameters (params);
 
     return { params.begin(), params.end() };
 }
 
-template<class Processor>
+template <class Processor>
 bool PluginBase<Processor>::isBusesLayoutSupported (const BusesLayout& layouts) const
 {
     // only supports mono and stereo (for now)
     if (layouts.getMainOutputChannelSet() != AudioChannelSet::mono()
-     && layouts.getMainOutputChannelSet() != AudioChannelSet::stereo())
+        && layouts.getMainOutputChannelSet() != AudioChannelSet::stereo())
         return false;
 
     // input and output layout must be the same
     if (layouts.getMainOutputChannelSet() != layouts.getMainInputChannelSet())
         return false;
-    
+
     return true;
 }
 
-template<class Processor>
+template <class Processor>
 void PluginBase<Processor>::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     setRateAndBufferSizeDetails (sampleRate, samplesPerBlock);
     magicState.prepareToPlay (sampleRate, samplesPerBlock);
 }
 
-template<class Processor>
+template <class Processor>
 void PluginBase<Processor>::processBlock (AudioBuffer<float>& buffer, MidiBuffer&)
 {
     processBlock (buffer);
