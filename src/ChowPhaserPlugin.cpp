@@ -29,7 +29,7 @@ void ChowPhaser::releaseResources()
 
 void ChowPhaser::processBlock (AudioBuffer<float>& buffer)
 {
-    const int numSamples = buffer.getNumSamples();
+    const int numSamples =buffer.getNumSamples();
     monoBuffer.setSize (1, numSamples, false, false, true);
     noModBuffer.setSize (1, numSamples, false, false, true);
     monoBuffer.clear();
