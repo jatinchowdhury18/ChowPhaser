@@ -1,9 +1,9 @@
-name: Auto-formatter
+clangname: Auto-formatter
 
 on:
   pull_request:
     branches:
-    - main
+    - master
     - develop
     paths:
     - '**.cpp'
