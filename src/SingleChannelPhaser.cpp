@@ -3,34 +3,35 @@
 
 namespace
 {
-    const String fbTag = "feedback";
-    const String modTag = "mod";
-    const String lfoFreqTag = "lfo_freq";
-    const String lfoDepthTag = "lfo_depth";
-    const String freqMultTag = "freq_mult";
-    const String skewTag = "skew";
-    const String stagesTag = "stages";
-    const String d1Tag = "d1";
-    const String d2Tag = "d2";
-    const String d3Tag = "d3";
-}
+const String fbTag = "feedback";
+const String modTag = "mod";
+const String lfoFreqTag = "lfo_freq";
+const String lfoDepthTag = "lfo_depth";
+const String freqMultTag = "freq_mult";
+const String skewTag = "skew";
+const String stagesTag = "stages";
+const String d1Tag = "d1";
+const String d2Tag = "d2";
+const String d3Tag = "d3";
+} // namespace
 
 SingleChannelPhaser::SingleChannelPhaser (foleys::MagicProcessorState& magicState, String prefix)
 {
     auto& vts = magicState.getValueTreeState();
 
-    fbParam       = vts.getRawParameterValue (prefix + fbTag);
-    modParam      = vts.getRawParameterValue (prefix + modTag);
-    lfoFreqParam  = vts.getRawParameterValue (prefix + lfoFreqTag);
+    fbParam = vts.getRawParameterValue (prefix + fbTag);
+    modParam = vts.getRawParameterValue (prefix + modTag);
+    lfoFreqParam = vts.getRawParameterValue (prefix + lfoFreqTag);
     lfoDepthParam = vts.getRawParameterValue (prefix + lfoDepthTag);
     freqMultParam = vts.getRawParameterValue (prefix + freqMultTag);
-    skewParam     = vts.getRawParameterValue (prefix + skewTag);
-    stagesParam   = vts.getRawParameterValue (prefix + stagesTag);
-    d1Param       = vts.getRawParameterValue (prefix + d1Tag);
-    d2Param       = vts.getRawParameterValue (prefix + d2Tag);
-    d3Param       = vts.getRawParameterValue (prefix + d3Tag);
+    skewParam = vts.getRawParameterValue (prefix + skewTag);
+    stagesParam = vts.getRawParameterValue (prefix + stagesTag);
+    d1Param = vts.getRawParameterValue (prefix + d1Tag);
+    d2Param = vts.getRawParameterValue (prefix + d2Tag);
+    d3Param = vts.getRawParameterValue (prefix + d3Tag);
 
-    lfo.initialise ([] (float x) { return dsp::FastMathApproximations::sin<float> (x); });
+    lfo.initialise ([] (float x)
+                    { return dsp::FastMathApproximations::sin<float> (x); });
 
     scope = magicState.createAndAddObject<LightMeter> (prefix + "light");
     magicState.addBackgroundProcessing (scope);
@@ -48,7 +49,7 @@ void SingleChannelPhaser::addParameters (Parameters& params, String prefix, floa
     params.push_back (std::make_unique<AudioParameterFloat> (prefix + modTag, "Modulation", modRange, 1.0f, 0.0f));
     params.push_back (std::make_unique<AudioParameterFloat> (prefix + lfoFreqTag, "LFO Freq", freqRange, 0.0f));
     params.push_back (std::make_unique<AudioParameterFloat> (prefix + lfoDepthTag, "LFO Depth", 0.0f, 0.95f, 0.0f));
-    params.push_back (std::make_unique<AudioParameterBool>  (prefix + freqMultTag, "Freq. Mult", false));
+    params.push_back (std::make_unique<AudioParameterBool> (prefix + freqMultTag, "Freq. Mult", false));
     params.push_back (std::make_unique<AudioParameterFloat> (prefix + skewTag, "Skew", -3.0f, 3.0f, 0.0f));
     params.push_back (std::make_unique<AudioParameterFloat> (prefix + stagesTag, "Stages", stagesRange, 8.0f));
     params.push_back (std::make_unique<AudioParameterFloat> (prefix + d1Tag, "D1", 0.1f, 5.0f, 1.0f));
@@ -107,9 +108,8 @@ void SingleChannelPhaser::processBlock (const float* input, float* modOut, float
         auto rVal = 100000.0f * std::pow (lightVal / 0.1f, -0.75f);
 
         fbSection.calcCoefs (rVal, -1.0f * fbSmooth.getNextValue());
-        noModOut[n] = fbSection.processSampleTanh (input[n], d1Smooth.getNextValue(),
-                                                   d2Smooth.getNextValue(), d3Smooth.getNextValue());
-        
+        noModOut[n] = fbSection.processSampleTanh (input[n], d1Smooth.getNextValue(), d2Smooth.getNextValue(), d3Smooth.getNextValue());
+
         phaseSection.calcCoefs (rVal);
         auto modGain = modSmooth.getNextValue();
         modOut[n] = modGain * phaseSection.processSample (noModOut[n], stagesSmooth.getNextValue()) + (1.0f - modGain) * noModOut[n];

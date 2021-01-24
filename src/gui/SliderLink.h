@@ -5,24 +5,22 @@
 
 namespace foleys
 {
-
 /** Copied from foleys::SliderItem class with shift key link to another parameter */
 class SliderLink : public GuiItem,
                    private juce::Slider::Listener
 {
-
 public:
     FOLEYS_DECLARE_GUI_FACTORY (SliderLink)
 
-    static const juce::Identifier  pSliderType;
+    static const juce::Identifier pSliderType;
     static const juce::StringArray pSliderTypes;
 
-    static const juce::Identifier  pSliderTextBox;
+    static const juce::Identifier pSliderTextBox;
     static const juce::StringArray pTextBoxPositions;
 
-    static const juce::Identifier  pValue;
-    static const juce::Identifier  pMinValue;
-    static const juce::Identifier  pMaxValue;
+    static const juce::Identifier pValue;
+    static const juce::Identifier pMinValue;
+    static const juce::Identifier pMaxValue;
 
     // @JATIN change
     static const juce::Identifier linkParam;
@@ -30,17 +28,15 @@ public:
     SliderLink (MagicGUIBuilder& builder, const juce::ValueTree& node) : GuiItem (builder, node)
     {
         setColourTranslation (
-        {
-            { "slider-background", juce::Slider::backgroundColourId },
-            { "slider-thumb", juce::Slider::thumbColourId },
-            { "slider-track", juce::Slider::trackColourId },
-            { "rotary-fill", juce::Slider::rotarySliderFillColourId },
-            { "rotary-outline", juce::Slider::rotarySliderOutlineColourId },
-            { "slider-text", juce::Slider::textBoxTextColourId },
-            { "slider-text-background", juce::Slider::textBoxBackgroundColourId },
-            { "slider-text-highlight", juce::Slider::textBoxHighlightColourId },
-            { "slider-text-outline", juce::Slider::textBoxOutlineColourId }
-        });
+            { { "slider-background", juce::Slider::backgroundColourId },
+              { "slider-thumb", juce::Slider::thumbColourId },
+              { "slider-track", juce::Slider::trackColourId },
+              { "rotary-fill", juce::Slider::rotarySliderFillColourId },
+              { "rotary-outline", juce::Slider::rotarySliderOutlineColourId },
+              { "slider-text", juce::Slider::textBoxTextColourId },
+              { "slider-text-background", juce::Slider::textBoxBackgroundColourId },
+              { "slider-text-highlight", juce::Slider::textBoxHighlightColourId },
+              { "slider-text-outline", juce::Slider::textBoxOutlineColourId } });
 
         addAndMakeVisible (slider);
 
@@ -62,27 +58,27 @@ public:
         attachment.reset();
 
         auto type = getProperty (pSliderType).toString();
-        slider.setAutoOrientation (type.isEmpty() || type == pSliderTypes [0]);
+        slider.setAutoOrientation (type.isEmpty() || type == pSliderTypes[0]);
 
-        if (type == pSliderTypes [1])
+        if (type == pSliderTypes[1])
             slider.setSliderStyle (juce::Slider::LinearHorizontal);
-        else if (type == pSliderTypes [2])
+        else if (type == pSliderTypes[2])
             slider.setSliderStyle (juce::Slider::LinearVertical);
-        else if (type == pSliderTypes [3])
+        else if (type == pSliderTypes[3])
             slider.setSliderStyle (juce::Slider::Rotary);
-        else if (type == pSliderTypes [4])
+        else if (type == pSliderTypes[4])
             slider.setSliderStyle (juce::Slider::RotaryHorizontalVerticalDrag);
-        else if (type == pSliderTypes [5])
+        else if (type == pSliderTypes[5])
             slider.setSliderStyle (juce::Slider::IncDecButtons);
 
         auto textbox = getProperty (pSliderTextBox).toString();
-        if (textbox == pTextBoxPositions [0])
+        if (textbox == pTextBoxPositions[0])
             slider.setTextBoxStyle (juce::Slider::NoTextBox, false, slider.getTextBoxWidth(), slider.getTextBoxHeight());
-        else if (textbox == pTextBoxPositions [1])
+        else if (textbox == pTextBoxPositions[1])
             slider.setTextBoxStyle (juce::Slider::TextBoxAbove, false, slider.getTextBoxWidth(), slider.getTextBoxHeight());
-        else if (textbox == pTextBoxPositions [3])
+        else if (textbox == pTextBoxPositions[3])
             slider.setTextBoxStyle (juce::Slider::TextBoxLeft, false, slider.getTextBoxWidth(), slider.getTextBoxHeight());
-        else if (textbox == pTextBoxPositions [4])
+        else if (textbox == pTextBoxPositions[4])
             slider.setTextBoxStyle (juce::Slider::TextBoxRight, false, slider.getTextBoxWidth(), slider.getTextBoxHeight());
         else
             slider.setTextBoxStyle (juce::Slider::TextBoxBelow, false, slider.getTextBoxWidth(), slider.getTextBoxHeight());
@@ -110,8 +106,8 @@ public:
         std::vector<SettableProperty> properties;
 
         properties.push_back ({ configNode, IDs::parameter, SettableProperty::Choice, {}, magicBuilder.createParameterMenu() });
-        properties.push_back ({ configNode, pSliderType, SettableProperty::Choice, pSliderTypes [0], makePopupMenu (pSliderTypes) });
-        properties.push_back ({ configNode, pSliderTextBox, SettableProperty::Choice, pTextBoxPositions [2], makePopupMenu (pTextBoxPositions) });
+        properties.push_back ({ configNode, pSliderType, SettableProperty::Choice, pSliderTypes[0], makePopupMenu (pSliderTypes) });
+        properties.push_back ({ configNode, pSliderTextBox, SettableProperty::Choice, pTextBoxPositions[2], makePopupMenu (pTextBoxPositions) });
         properties.push_back ({ configNode, pValue, SettableProperty::Property, 1.0f, {} });
         properties.push_back ({ configNode, pMinValue, SettableProperty::Number, 0.0f, {} });
         properties.push_back ({ configNode, pMaxValue, SettableProperty::Number, 2.0f, {} });
@@ -131,10 +127,10 @@ public:
     bool isLinked (juce::Slider* s) const
     {
         return s == &slider && linkParamHandle != nullptr
-            && paramID.isNotEmpty() && linkFlag.load();
+               && paramID.isNotEmpty() && linkFlag.load();
     }
 
-    void sliderValueChanged(juce::Slider* s) override
+    void sliderValueChanged (juce::Slider* s) override
     {
         if (! isLinked (s))
             return;
@@ -142,7 +138,7 @@ public:
         linkParamHandle->setValueNotifyingHost (getMagicState().getParameter (paramID)->getValue());
     }
 
-    void sliderDragStarted(juce::Slider* s) override
+    void sliderDragStarted (juce::Slider* s) override
     {
         if (! isLinked (s))
             return;
@@ -154,7 +150,7 @@ public:
         }
     }
 
-    void sliderDragEnded(juce::Slider* s) override
+    void sliderDragEnded (juce::Slider* s) override
     {
         if (! isLinked (s))
             return;
@@ -191,17 +187,17 @@ private:
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SliderLink)
 };
-const juce::Identifier  SliderLink::pSliderType   { "slider-type" };
-const juce::StringArray SliderLink::pSliderTypes  { "auto", "linear-horizontal", "linear-vertical", "rotary", "rotary-horizontal-vertical", "inc-dec-buttons" };
-const juce::Identifier  SliderLink::pSliderTextBox    { "slider-textbox" };
+const juce::Identifier SliderLink::pSliderType { "slider-type" };
+const juce::StringArray SliderLink::pSliderTypes { "auto", "linear-horizontal", "linear-vertical", "rotary", "rotary-horizontal-vertical", "inc-dec-buttons" };
+const juce::Identifier SliderLink::pSliderTextBox { "slider-textbox" };
 const juce::StringArray SliderLink::pTextBoxPositions { "no-textbox", "textbox-above", "textbox-below", "textbox-left", "textbox-right" };
-const juce::Identifier  SliderLink::pValue      { "value" };
-const juce::Identifier  SliderLink::pMinValue   { "min-value" };
-const juce::Identifier  SliderLink::pMaxValue   { "max-value" };
+const juce::Identifier SliderLink::pValue { "value" };
+const juce::Identifier SliderLink::pMinValue { "min-value" };
+const juce::Identifier SliderLink::pMaxValue { "max-value" };
 
 // @JATIN change
-const juce::Identifier  SliderLink::linkParam   { "link-param" };
+const juce::Identifier SliderLink::linkParam { "link-param" };
 
-}
+} // namespace foleys
 
 #endif // SLIDERLINK_H_INCLUDED

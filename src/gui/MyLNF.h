@@ -8,14 +8,11 @@ class MyLNF : public LookAndFeel_V4
 public:
     MyLNF();
 
-    Typeface::Ptr getTypefaceForFont(const Font&) override;
+    Typeface::Ptr getTypefaceForFont (const Font&) override;
 
-    void drawRotarySlider (juce::Graphics& g, int x, int y, int width, int height,
-                           float sliderPos, float rotaryStartAngle,
-                           float rotaryEndAngle, juce::Slider& slider) override;
+    void drawRotarySlider (juce::Graphics& g, int x, int y, int width, int height, float sliderPos, float rotaryStartAngle, float rotaryEndAngle, juce::Slider& slider) override;
 
-    void drawToggleButton (Graphics& g, ToggleButton& button,
-                           bool shouldDrawButtonAsHighlighted, bool shouldDrawButtonAsDown) override;
+    void drawToggleButton (Graphics& g, ToggleButton& button, bool shouldDrawButtonAsHighlighted, bool shouldDrawButtonAsDown) override;
 
 private:
     std::unique_ptr<Drawable> knob = Drawable::createFromImageData (BinaryData::knob_svg, BinaryData::knob_svgSize);

@@ -1,10 +1,10 @@
 #ifndef CHOWPHASERPLUGIN_H_INCLUDED
 #define CHOWPHASERPLUGIN_H_INCLUDED
 
-#include <JuceHeader.h>
 #include "PluginBase.h"
 #include "SingleChannelPhaser.h"
 #include "gui/MyLNF.h"
+#include <JuceHeader.h>
 
 class ChowPhaser : public PluginBase<ChowPhaser>
 {
@@ -24,7 +24,7 @@ private:
 
     AudioBuffer<float> monoBuffer;
     AudioBuffer<float> noModBuffer;
-    
+
     MyLNF myLNF;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChowPhaser)

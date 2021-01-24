@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 add_subdirectory(modules)
 
 # juce_set_vst2_sdk_path(C:/SDKs/VST_SDK/VST2_SDK/)
+# include_directories(C:/SDKs/asiosdk2.3/common)
 
 juce_add_plugin(ChowPhaserMono
     COMPANY_NAME chowdsp
