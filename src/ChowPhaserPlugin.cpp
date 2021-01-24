@@ -1,11 +1,10 @@
 #include "ChowPhaserPlugin.h"
-#include "gui/LightMeter.h"
-#include "gui/TooltipComp.h"
 #include "gui/InfoComp.h"
+#include "gui/LightMeter.h"
 #include "gui/TitleComp.h"
+#include "gui/TooltipComp.h"
 
-ChowPhaser::ChowPhaser() :
-    phaser (magicState)
+ChowPhaser::ChowPhaser() : phaser (magicState)
 {
     LookAndFeel::setDefaultLookAndFeel (&myLNF);
 }
@@ -29,7 +28,7 @@ void ChowPhaser::releaseResources()
 
 void ChowPhaser::processBlock (AudioBuffer<float>& buffer)
 {
-    const int numSamples =buffer.getNumSamples();
+    const int numSamples = buffer.getNumSamples();
     monoBuffer.setSize (1, numSamples, false, false, true);
     noModBuffer.setSize (1, numSamples, false, false, true);
     monoBuffer.clear();
@@ -58,7 +57,7 @@ bool ChowPhaser::isBusesLayoutSupported (const BusesLayout& layouts) const
     // input and output layout must be the same
     if (layouts.getMainOutputChannelSet() != layouts.getMainInputChannelSet())
         return false;
-    
+
     return true;
 }
 

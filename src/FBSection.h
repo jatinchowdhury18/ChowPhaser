@@ -1,8 +1,8 @@
 #ifndef FBSECTION_H_INCLUDED
 #define FBSECTION_H_INCLUDED
 
-#include "TanhIIRFilter.h"
 #include "IIRFilter.h"
+#include "TanhIIRFilter.h"
 
 class FBSection : public TanhIIRFilter<2>
 {
@@ -22,7 +22,7 @@ public:
         // component values
         // R = jmax (1.0f, R);
         constexpr float C = (float) 15e-9;
-        const float RC = R*C;
+        const float RC = R * C;
 
         // analog coefs
         const float b0s = RC * RC;
@@ -49,7 +49,7 @@ public:
 
     static inline float calcPoleFreq (float a, float b, float c)
     {
-        auto radicand = b*b - 4.0f*a*c;
+        auto radicand = b * b - 4.0f * a * c;
         if (radicand >= 0.0f)
             return 0.0f;
 

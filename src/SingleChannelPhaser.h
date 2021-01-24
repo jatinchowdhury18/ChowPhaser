@@ -11,9 +11,9 @@ using Parameters = std::vector<std::unique_ptr<RangedAudioParameter>>;
 class SingleChannelPhaser
 {
 public:
-    SingleChannelPhaser (foleys::MagicProcessorState& magicState, String prefix="");
+    SingleChannelPhaser (foleys::MagicProcessorState& magicState, String prefix = "");
 
-    static void addParameters (Parameters& params, String prefix="", float modRange=0.0f);
+    static void addParameters (Parameters& params, String prefix = "", float modRange = 0.0f);
     void prepareToPlay (double sampleRate, int samplesPerBlock);
     void releaseResources();
     void processBlock (const float* input, float* modOut, float* noModOut, const int numSamples);
