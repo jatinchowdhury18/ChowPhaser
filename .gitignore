@@ -1,5 +1,6 @@
 # build artifacts
 build*/
+bin/*[!.zip]
 
 # vscode settings
 .vscode/
@@ -7,3 +8,4 @@ build*/
 # extras
 writing/
 demo/
+.DS_Store
