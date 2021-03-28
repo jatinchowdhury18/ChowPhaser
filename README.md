@@ -1,7 +1,7 @@
 # CHOW Phaser
 
 [![Download Latest](https://img.shields.io/badge/download-latest-yellow.svg)](https://github.com/jatinchowdhury18/ChowPhaser/releases/latest)
-[![Build Status](https://travis-ci.com/jatinchowdhury18/ChowPhaser.svg?token=Ub9niJrqG1Br1qaaxp7E&branch=master)](https://travis-ci.com/jatinchowdhury18/ChowPhaser)
+[![CI](https://github.com/jatinchowdhury18/ChowPhaser/actions/workflows/cmake.yml/badge.svg)](https://github.com/jatinchowdhury18/ChowPhaser/actions/workflows/cmake.yml)
 [![License](https://img.shields.io/badge/License-BSD-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 [![Downloads](https://img.shields.io/github/downloads/jatinchowdhury18/ChowPhaser/total)](https://somsubhra.github.io/github-release-stats/?username=jatinchowdhury18&repository=ChowPhaser&page=1&per_page=30)
 
