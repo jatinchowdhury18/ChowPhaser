@@ -56,3 +56,13 @@ target_link_libraries(ChowPhaserStereo PRIVATE
     BinaryData
     juce::juce_audio_utils
     foleys_gui_magic)
+
+# we need these flags for notarization on MacOS
+option(MACOS_RELEASE "Set build flags for MacOS Release" OFF)
+if(MACOS_RELEASE)
+    message(STATUS "Setting MacOS release flags...")
+    set_target_properties(ChowPhaserMono_Standalone PROPERTIES
+        XCODE_ATTRIBUTE_ENABLE_HARDENED_RUNTIME YES)
+    set_target_properties(ChowPhaserStereo_Standalone PROPERTIES
+        XCODE_ATTRIBUTE_ENABLE_HARDENED_RUNTIME YES)
+endif()
