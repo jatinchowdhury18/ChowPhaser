@@ -22,10 +22,9 @@ rm -Rf bin/*Win64*
 rm -Rf bin/*Win32*
 
 # set up VST and ASIO paths
-sed -i -e "7s/#//" CMakeLists.txt
 sed -i -e "8s/#//" CMakeLists.txt
-sed -i -e '14s/#//' CMakeLists.txt
-sed -i -e '21s/#//' CMakeLists.txt
+sed -i -e '15s/#//' CMakeLists.txt
+sed -i -e '22s/#//' CMakeLists.txt
 
 # cmake new builds
 build64 &
@@ -57,4 +56,11 @@ VERSION=$(cut -f 2 -d '=' <<< "$(grep 'CMAKE_PROJECT_VERSION:STATIC' build/CMake
     rm -f "ChowPhaser-Win32-${VERSION}.zip"
     zip -r "ChowPhaser-Win64-${VERSION}.zip" Win64
     zip -r "ChowPhaser-Win32-${VERSION}.zip" Win32
+)
+
+# create installer
+echo "Creating installer..."
+(
+    cd installers/windows
+    bash build_win_installer.sh
 )
