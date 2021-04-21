@@ -649,9 +649,9 @@
 															<key>GID</key>
 															<integer>0</integer>
 															<key>PATH</key>
-															<string>/Users/jachowdhury/Developer/dsp/Plugins/ChowPhaser/bin/Mac/ChowPhaserMono.vst3</string>
+                                                            <string>../../bin/Mac/ChowPhaserMono.vst3</string>
 															<key>PATH_TYPE</key>
-															<integer>0</integer>
+															<integer>1</integer>
 															<key>PERMISSIONS</key>
 															<integer>493</integer>
 															<key>TYPE</key>
@@ -667,9 +667,9 @@
 															<key>GID</key>
 															<integer>0</integer>
 															<key>PATH</key>
-															<string>/Users/jachowdhury/Developer/dsp/Plugins/ChowPhaser/bin/Mac/ChowPhaserStereo.vst3</string>
+                                                            <string>../../bin/Mac/ChowPhaserStereo.vst3</string>
 															<key>PATH_TYPE</key>
-															<integer>0</integer>
+															<integer>1</integer>
 															<key>PERMISSIONS</key>
 															<integer>493</integer>
 															<key>TYPE</key>
@@ -1227,9 +1227,9 @@
 															<key>GID</key>
 															<integer>0</integer>
 															<key>PATH</key>
-															<string>/Users/jachowdhury/Developer/dsp/Plugins/ChowPhaser/bin/Mac/ChowPhaserMono.vst</string>
+                                                            <string>../../bin/Mac/ChowPhaserMono.vst</string>
 															<key>PATH_TYPE</key>
-															<integer>0</integer>
+															<integer>1</integer>
 															<key>PERMISSIONS</key>
 															<integer>493</integer>
 															<key>TYPE</key>
@@ -1245,9 +1245,9 @@
 															<key>GID</key>
 															<integer>0</integer>
 															<key>PATH</key>
-															<string>/Users/jachowdhury/Developer/dsp/Plugins/ChowPhaser/bin/Mac/ChowPhaserStereo.vst</string>
+                                                            <string>../../bin/Mac/ChowPhaserStereo.vst</string>
 															<key>PATH_TYPE</key>
-															<integer>0</integer>
+															<integer>1</integer>
 															<key>PERMISSIONS</key>
 															<integer>493</integer>
 															<key>TYPE</key>
@@ -2018,9 +2018,9 @@
 									<key>GID</key>
 									<integer>80</integer>
 									<key>PATH</key>
-									<string>/Users/jachowdhury/Developer/dsp/Plugins/ChowPhaser/bin/Mac/ChowPhaserMono.app</string>
+                                    <string>../../bin/Mac/ChowPhaserMono.app</string>
 									<key>PATH_TYPE</key>
-									<integer>0</integer>
+									<integer>1</integer>
 									<key>PERMISSIONS</key>
 									<integer>493</integer>
 									<key>TYPE</key>
@@ -2046,9 +2046,9 @@
 									<key>GID</key>
 									<integer>80</integer>
 									<key>PATH</key>
-									<string>/Users/jachowdhury/Developer/dsp/Plugins/ChowPhaser/bin/Mac/ChowPhaserStereo.app</string>
+                                    <string>../../bin/Mac/ChowPhaserStereo.app</string>
 									<key>PATH_TYPE</key>
-									<integer>0</integer>
+									<integer>1</integer>
 									<key>PERMISSIONS</key>
 									<integer>493</integer>
 									<key>TYPE</key>
