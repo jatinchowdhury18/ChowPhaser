@@ -19,7 +19,7 @@ To install, you can download the latest release from
 [our website](https://chowdsp.com/products.html#phaser).
 If you would like to try the most recent updates
 (potentially unstable), see our
-[Nightly BUilds Page](https://chowdsp.com/nightly.html#phaser).
+[Nightly Builds Page](https://chowdsp.com/nightly.html#phaser).
 Linux users can also find builds available on the
 [Open Build Service](https://build.opensuse.org/package/show/home:kill_it:JUCE/ChowPhaser),
 courtesy of Konstantin Voinov.
