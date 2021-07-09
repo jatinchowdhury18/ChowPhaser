@@ -32,7 +32,6 @@ target_compile_definitions(juce_plugin_modules
         FOLEYS_ENABLE_BINARY_DATA=1
         JucePlugin_Manufacturer="chowdsp"
         JucePlugin_VersionString="${CMAKE_PROJECT_VERSION}"
-        JucePlugin_Name="${CMAKE_PROJECT_NAME}"
     INTERFACE
         $<TARGET_PROPERTY:juce_plugin_modules,COMPILE_DEFINITIONS>
 )
