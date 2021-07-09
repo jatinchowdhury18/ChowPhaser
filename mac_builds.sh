@@ -10,8 +10,6 @@ rm -Rf bin/*Mac*
 # set up build VST
 VST_PATH=~/Developer/Plugin_SDKs/VST2_SDK/
 sed -i '' "7s~.*~juce_set_vst2_sdk_path(${VST_PATH})~" CMakeLists.txt
-sed -i '' '15s/#//' CMakeLists.txt
-sed -i '' '22s/#//' CMakeLists.txt
 
 # cmake new builds
 TEAM_ID=$(more ~/Developer/mac_id)
