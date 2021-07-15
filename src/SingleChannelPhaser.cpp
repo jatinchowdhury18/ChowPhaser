@@ -72,6 +72,8 @@ void SingleChannelPhaser::prepareToPlay (double sampleRate, int samplesPerBlock)
     d2Smooth.reset (sampleRate, 0.05f);
     d3Smooth.reset (sampleRate, 0.05f);
 
+    d2Corr = (float) std::sqrt (44100.0 / sampleRate);
+
     scopeBuffer.setSize (1, samplesPerBlock);
     scope->prepareToPlay (sampleRate, samplesPerBlock);
 }
@@ -93,7 +95,7 @@ void SingleChannelPhaser::processBlock (const float* input, float* modOut, float
     skewSmooth.setTargetValue (std::pow (2.0f, *skewParam));
     stagesSmooth.setTargetValue (*stagesParam);
     d1Smooth.setTargetValue (*d1Param);
-    d2Smooth.setTargetValue (*d2Param);
+    d2Smooth.setTargetValue (*d2Param * d2Corr);
     d3Smooth.setTargetValue (*d3Param);
 
     auto* scopePtr = scopeBuffer.getWritePointer (0);
