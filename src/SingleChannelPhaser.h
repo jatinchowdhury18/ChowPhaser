@@ -43,8 +43,6 @@ private:
     SmoothedValue<float, ValueSmoothingTypes::Linear> d2Smooth;
     SmoothedValue<float, ValueSmoothingTypes::Linear> d3Smooth;
 
-    float d2Corr = 1.0f;
-
     AudioBuffer<float> scopeBuffer;
     foleys::MagicPlotSource* scope = nullptr;
 

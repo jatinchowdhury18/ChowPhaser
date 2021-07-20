@@ -9,10 +9,10 @@ class FBSection : public TanhIIRFilter<2>
 public:
     FBSection() {}
 
-    void reset (double sampleRate)
+    void prepare (double sampleRate)
     {
         fs = (float) sampleRate;
-        TanhIIRFilter<2>::reset();
+        TanhIIRFilter<2>::reset (sampleRate);
     }
 
     inline void calcCoefs (float R, float fbAmt)
@@ -47,13 +47,13 @@ public:
         b[2] = (b0s * KSq - b1s * K + b2s) / a0;
     }
 
-    static inline float calcPoleFreq (float a, float b, float c)
+    static inline float calcPoleFreq (float a_, float b_, float c_)
     {
-        auto radicand = b * b - 4.0f * a * c;
+        auto radicand = b_ * b_ - 4.0f * a_ * c_;
         if (radicand >= 0.0f)
             return 0.0f;
 
-        return std::sqrt (-radicand) / (2.0f * a);
+        return std::sqrt (-radicand) / (2.0f * a_);
     }
 
 private:

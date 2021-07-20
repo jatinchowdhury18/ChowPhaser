@@ -30,7 +30,7 @@ void ChowPhaserStereo::releaseResources()
 {
 }
 
-void ChowPhaserStereo::processBlock (AudioBuffer<float>& buffer)
+void ChowPhaserStereo::processAudioBlock (AudioBuffer<float>& buffer)
 {
     const int numSamples = buffer.getNumSamples();
     noModBuffer.setSize (1, numSamples, false, false, true);

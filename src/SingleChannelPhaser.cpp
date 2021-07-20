@@ -54,14 +54,14 @@ void SingleChannelPhaser::addParameters (Parameters& params, String prefix, floa
     params.push_back (std::make_unique<AudioParameterFloat> (prefix + stagesTag, "Stages", stagesRange, 8.0f));
     params.push_back (std::make_unique<AudioParameterFloat> (prefix + d1Tag, "D1", 0.1f, 5.0f, 1.0f));
     params.push_back (std::make_unique<AudioParameterFloat> (prefix + d2Tag, "D2", 0.1f, 5.0f, 1.0f));
-    params.push_back (std::make_unique<AudioParameterFloat> (prefix + d3Tag, "D3", 0.1f, 5.0f, 1.0f));
+    params.push_back (std::make_unique<AudioParameterFloat> (prefix + d3Tag, "D3", 1.0f, 5.0f, 1.0f));
 }
 
 void SingleChannelPhaser::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     lfo.prepare ({ sampleRate, (uint32) samplesPerBlock, 1 });
-    fbSection.reset (sampleRate);
-    phaseSection.reset (sampleRate);
+    fbSection.prepare (sampleRate);
+    phaseSection.prepare (sampleRate);
 
     depthSmooth.reset (sampleRate, 0.05);
     fbSmooth.reset (sampleRate, 0.05);
@@ -71,8 +71,6 @@ void SingleChannelPhaser::prepareToPlay (double sampleRate, int samplesPerBlock)
     d1Smooth.reset (sampleRate, 0.05f);
     d2Smooth.reset (sampleRate, 0.05f);
     d3Smooth.reset (sampleRate, 0.05f);
-
-    d2Corr = (float) std::sqrt (44100.0 / sampleRate);
 
     scopeBuffer.setSize (1, samplesPerBlock);
     scope->prepareToPlay (sampleRate, samplesPerBlock);
@@ -95,7 +93,7 @@ void SingleChannelPhaser::processBlock (const float* input, float* modOut, float
     skewSmooth.setTargetValue (std::pow (2.0f, *skewParam));
     stagesSmooth.setTargetValue (*stagesParam);
     d1Smooth.setTargetValue (*d1Param);
-    d2Smooth.setTargetValue (*d2Param * d2Corr);
+    d2Smooth.setTargetValue (*d2Param);
     d3Smooth.setTargetValue (*d3Param);
 
     auto* scopePtr = scopeBuffer.getWritePointer (0);

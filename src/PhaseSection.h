@@ -8,7 +8,7 @@ class PhaseSection
 public:
     PhaseSection() {}
 
-    void reset (double sampleRate)
+    void prepare (double sampleRate)
     {
         std::fill (z, &z[maxNumStages], 0.0f);
         fs = (float) sampleRate;

@@ -33,7 +33,7 @@ public:
     bool isBusesLayoutSupported (const BusesLayout& layouts) const override;
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
     void processBlock (AudioBuffer<float>&, MidiBuffer&) override;
-    virtual void processBlock (AudioBuffer<float>&) = 0;
+    virtual void processAudioBlock (AudioBuffer<float>&) = 0;
 
     bool hasEditor() const override { return true; }
     AudioProcessorEditor* createEditor() override { return new foleys::MagicPluginEditor (magicState); }
@@ -67,7 +67,7 @@ class HasAddParameters
 public:
     enum
     {
-        value = sizeof (test<T> (0)) == sizeof (char)
+        value = sizeof (test<T> (nullptr)) == sizeof (char)
     };
 };
 
@@ -121,5 +121,5 @@ void PluginBase<Processor>::prepareToPlay (double sampleRate, int samplesPerBloc
 template <class Processor>
 void PluginBase<Processor>::processBlock (AudioBuffer<float>& buffer, MidiBuffer&)
 {
-    processBlock (buffer);
+    processAudioBlock (buffer);
 }
