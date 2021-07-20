@@ -27,7 +27,7 @@ juce_add_plugin(ChowPhaserMono
     PLUGIN_CODE Cph1
     FORMATS ${JUCE_FORMATS}
     ProductName "ChowPhaser Mono"
-    LV2_URI https://github.com/jatinchowdhury18/ChowPhaser
+    LV2_URI https://github.com/jatinchowdhury18/ChowPhaserMono
 )
 
 juce_add_plugin(ChowPhaserStereo
@@ -36,7 +36,7 @@ juce_add_plugin(ChowPhaserStereo
     PLUGIN_CODE Cph2
     FORMATS ${JUCE_FORMATS}
     ProductName "ChowPhaser Stereo"
-    LV2_URI https://github.com/jatinchowdhury18/ChowPhaser
+    LV2_URI https://github.com/jatinchowdhury18/ChowPhaserStereo
 )
 
 juce_generate_juce_header(ChowPhaserMono)
