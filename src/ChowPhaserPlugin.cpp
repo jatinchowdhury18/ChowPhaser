@@ -6,7 +6,6 @@
 
 ChowPhaser::ChowPhaser() : phaser (magicState)
 {
-    LookAndFeel::setDefaultLookAndFeel (&myLNF);
 }
 
 void ChowPhaser::addParameters (Parameters& params)
