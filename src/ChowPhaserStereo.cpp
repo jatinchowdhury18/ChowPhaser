@@ -8,8 +8,6 @@ ChowPhaserStereo::ChowPhaserStereo()
 {
     phasers[0] = std::make_unique<SingleChannelPhaser> (magicState, "left_");
     phasers[1] = std::make_unique<SingleChannelPhaser> (magicState, "right_");
-
-    LookAndFeel::setDefaultLookAndFeel (&myLNF);
 }
 
 void ChowPhaserStereo::addParameters (Parameters& params)

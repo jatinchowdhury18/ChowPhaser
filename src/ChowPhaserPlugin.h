@@ -25,8 +25,6 @@ private:
     AudioBuffer<float> monoBuffer;
     AudioBuffer<float> noModBuffer;
 
-    MyLNF myLNF;
-
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChowPhaser)
 };
 
